@@ -13,7 +13,7 @@ fi
 
 git add $1
 git commit -m $2
-if["$3" == ""]
+if ["$3" == ""] || ["$3" == "master"]
 then
 	git push origin master
 else
