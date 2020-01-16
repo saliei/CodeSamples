@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 	float milSecs = 0.0;
 	cudaEventElapsedTime(&milSecs, start, stop);
 
-	maxError = 0.0;
+	float maxError = 0.0;
 	for(i = 0; i < arrSize; i++)
 		maxError = max(maxError, abs(Y[i]-30.0));
 	printf("Max Error: %f\n", maxError);
