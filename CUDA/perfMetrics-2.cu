@@ -61,6 +61,22 @@ int main(int argc, char** argv)
 	//3: reading of X and reading and writing of Y
 	printf("Effective Bandwidth[GB/s]: %f\n", 1e-6*sizeof(float)*arrSize*3 / milSecs);
 
+	// compute theoretical peak bandwidth
+	int nDevs;
+	cudaGetDeviceCount(&nDevs);
+	for(i = 0; i < nDevs; ++i)
+	{
+		cudaDeviceProp prop;
+		cudaGetDeviceProperties(&prop, i);
+		printf("Device Number: %d", i);
+		printf("  Device Name: %s", prop.name);
+		printf("  Memory Clock Rate[Mhz]: %d\n", prop.memoryClockRate);
+		printf("  Memory Bus Width[bits]: %d\n", prop.memoryBusWidth);
+		printf("  Peak Memory Bandwidth[GB/s]: %f\n",
+		 1.0e-3*2*prop.memoryClockRate*prop.memoryBusWidth/8);
+	}
+
+
 	cudaFree(dX);
 	cudaFree(dY);
 	free(X);
