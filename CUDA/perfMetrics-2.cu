@@ -33,8 +33,8 @@ int main(int argc, char** argv)
 	}
 
 	float *dX, *dY;
-	cudaMalloc(dX, byteSize);
-	cudaMalloc(dY, byteSize);
+	cudaMalloc((double**)&dX, byteSize);
+	cudaMalloc((double**)&dY, byteSize);
 
 	cudaMemcpy(dX, X, byteSize, cudaMemcpyHostToDevice);
 	cudaMemcpy(dY, Y, byteSize, cudaMemcpyHostToDevice);
