@@ -11,10 +11,6 @@ then
 	exit
 fi
 
-echo $1
-echo $2
-echo $3
-
 git add $1
 git commit -m "$2"
 
