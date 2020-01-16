@@ -5,6 +5,17 @@
 # git commit -m <"commit message">
 # git push origin <bracnh-name|default=master>
 #
+if ["$1" == ""] || ["$2" == ""]
+then
+	echo 'Usage: gacp <file-name> "<commit-message>" <branch-name|default=master>'
+	exit
+fi
+
 git add $1
 git commit -m $2
-git push origin master
+if["$3" == ""]
+then
+	git push origin master
+else
+	git push origin $3
+fi
