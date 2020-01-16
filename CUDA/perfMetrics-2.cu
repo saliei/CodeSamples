@@ -58,6 +58,8 @@ int main(int argc, char** argv)
 	for(i = 0; i < arrSize; i++)
 		maxError = max(maxError, abs(Y[i]-30.0));
 	printf("Max Error: %f\n", maxError);
+	//3: reading of X and reading and writing of Y
+	printf("Effective Bandwidth[GB/s]: %f\n", 1e-6*sizeof(float)*arrSize*3 / milSecs);
 
 	cudaFree(dX);
 	cudaFree(dY);
