@@ -4,7 +4,7 @@
 __global__
 void add(double* A, double* B, double* C, unsigned int arrSize)
 {
-	unsigned int index = blockDim.x*blockId.x + threadId.x;
+	unsigned int index = blockDim.x*blockIdx.x + threadIdx.x;
 	unsigned int stride = gridDim.x * blockDim.x;
 	unsigned int i;
 	for(i = index; i < arrSize; i += stride)
@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 		exit(EXIT_FAILURE);
 	}
 	unsigned int arrSize = atoi(argv[1]);
-	byteSize = sizeof(double) * arrSize;
+	unsigned int byteSize = sizeof(double) * arrSize;
 
 	double* A = (double*)malloc(byteSize);
 	double* B = (double*)malloc(byteSize);
