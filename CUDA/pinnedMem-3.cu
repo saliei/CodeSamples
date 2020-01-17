@@ -32,7 +32,7 @@ void profileCopy(float* h_a, float* h_b, float* d, unsigned int n, char* descr)
 
 	cudaEventRecord(start, 0);
 	cudaMemcpy(h_b, d, bytes, cudaMemcpyDeviceToHost);
-	cudaEventRecord(stop. 0);
+	cudaEventRecord(stop, 0);
 	cudaEventSynchronize(stop);
 	cudaEventElapsedTime(&milSecs, start, stop);
 	printf("  Device to Host Bandwidth[GB/s]: %f\n", 1e-6*bytes/milSecs);
@@ -55,6 +55,7 @@ int main(int argc, char** argv)
 	unsigned int byteSize = numElem * sizeof(float);
 	float *h_aPageable, *h_bPageable;
 	float *h_aPinned, *h_bPinned;
+	float* d;
 
 	h_aPageable = (float*)malloc(byteSize);
 	h_bPageable = (float*)malloc(byteSize);
@@ -62,7 +63,18 @@ int main(int argc, char** argv)
 	checkCuda(cudaMallocHost((void**)&h_bPinned, byteSize));
 	cudaMalloc((void**)&d, byteSize);
 
-	profileCopy(h_aPageable, h_aPageable, d, numElem, "Pageable");
+	cudaDeviceProp prop;
+	cudaGetDeviceProperties(&prop, 0);
+	printf("Device: %s\n", prop.name);
+	printf("Transfer Size: %dB\n", byteSize);
+	profileCopy(h_aPageable, h_bPageable, d, numElem, "Pageable");
 	profileCopy(h_aPinned, h_bPinned, d, numElem, "Pinned");
 
+	cudaFreeHost(h_aPinned);
+	cudaFreeHost(h_bPinned);
+	free(h_aPageable);
+	free(h_aPageable);
+	cudaFree(d);
+
+	return 0;
 }
