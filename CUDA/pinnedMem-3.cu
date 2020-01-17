@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 //convience func for checking runtime CUDA errors
 inline
@@ -38,12 +39,10 @@ void profileCopy(float* h_a, float* h_b, float* d, unsigned int n, char* descr)
 	printf("  Device to Host Bandwidth[GB/s]: %f\n", 1e-6*bytes/milSecs);
 
 	unsigned int i;
+	float maxErr = 0.0;
 	for(i = 0; i < n; ++i)
-		if(h_a[i] - h_b[i] > 0.0)
-		{
-			fprintf(stderr, "%s Transfer Failure Error.\n", descr);
-			break;
-		}
+		maxErr = max(maxErr, abs(h_a[i]-h_b[i]));
+	printf("Maximum Error: %f\n", maxErr);
 
 	cudaEventDestroy(start);
 	cudaEventDestroy(stop);
