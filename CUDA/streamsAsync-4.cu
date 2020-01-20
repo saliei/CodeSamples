@@ -29,7 +29,7 @@ float maxError(float *A, unsigned int n)
 	return maxErr;
 }
 
-int main(int argv, char** argv)
+int main(int argc, char** argv)
 {
 	const int numStrms = 4, blockSize = 256;
 	const int n = 4 * 1024 * numStrms * blockSize;
@@ -64,14 +64,15 @@ int main(int argv, char** argv)
 	printf("  max error: %f\n", maxError(A, n));
 
 	//async v1: big loop
+	int offset;
 	memset(A, 0, bytes);
 	cudaEventRecord(start, 0);
 	for(i = 0; i < numStrms; ++i)
 	{
 		offset = i * strmSize;
-		cudaMemcpyAsync(&dA[offset], &A[offset], strmBytes, cudaMemcpyHostToDevice, &stream[i]);
+		cudaMemcpyAsync(&dA[offset], &A[offset], strmBytes, cudaMemcpyHostToDevice, stream[i]);
 		arrAdd<<<strmSize/blockSize, blockSize>>>(dA, offset);
-		cudaMemcpyAsync(&A[offset], &dA[offset], strmBytes, cudaMemcpyDeviceToHost, &stream[i]);
+		cudaMemcpyAsync(&A[offset], &dA[offset], strmBytes, cudaMemcpyDeviceToHost, stream[i]);
 	}
 	cudaEventRecord(stop, 0);
 	cudaEventSynchronize(stop);
@@ -85,7 +86,7 @@ int main(int argv, char** argv)
 	for(i = 0; i < numStrms; ++i)
 	{
 		offset = i * strmSize;
-		cudaMemcpyAsync(&dA[offset], &A[offset], strmBytes, cudaMemcpyHostToDevice, &stream[i]);
+		cudaMemcpyAsync(&dA[offset], &A[offset], strmBytes, cudaMemcpyHostToDevice, stream[i]);
 	}
 	for(i = 0; i < numStrms; ++i)
 	{
@@ -95,7 +96,7 @@ int main(int argv, char** argv)
 	for(i = 0; i < numStrms; ++i)
 	{
 		offset = i * strmSize;
-		cudaMemcpyAsync(&A[offset], &dA[offset], strmSize, cudaMemcpyDeviceToHost, &stream[i]);
+		cudaMemcpyAsync(&A[offset], &dA[offset], strmBytes, cudaMemcpyDeviceToHost, stream[i]);
 	}
 	cudaEventRecord(stop, 0);
 	cudaEventSynchronize(stop);
