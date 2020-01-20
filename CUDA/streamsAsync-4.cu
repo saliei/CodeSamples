@@ -79,4 +79,37 @@ int main(int argv, char** argv)
 	printf("Time for async v1: %f", milSecs);
 	printf("  max error: %f\n", maxError(A, n));
 
+	//async v2: unrolled loops
+	memset(A, 0, bytes);
+	cudaEventRecord(start, 0);
+	for(i = 0; i < numStrms; ++i)
+	{
+		offset = i * strmSize;
+		cudaMemcpyAsync(&dA[offset], &A[offset], strmBytes, cudaMemcpyHostToDevice, &stream[i]);
+	}
+	for(i = 0; i < numStrms; ++i)
+	{
+		offset = i * strmSize;
+		arrAdd<<<strmSize/blockSize, blockSize>>>(dA, offset);
+	}
+	for(i = 0; i < numStrms; ++i)
+	{
+		offset = i * strmSize;
+		cudaMemcpyAsync(&A[offset], &dA[offset], strmSize, cudaMemcpyDeviceToHost, &stream[i]);
+	}
+	cudaEventRecord(stop, 0);
+	cudaEventSynchronize(stop);
+	cudaEventElapsedTime(&milSecs, start, stop);
+	printf("Time for async v2: %f\n", milSecs);
+	printf("  max error: %f\n", maxError(A, n));
+
+	//cleanup
+	cudaEventDestroy(start);
+	cudaEventDestroy(stop);
+	for(i = 0; i < numStrms; ++i)
+		cudaStreamDestroy(stream[i]);
+	cudaFreeHost(A);
+	cudaFree(dA);
+
+	return 0;
 }
