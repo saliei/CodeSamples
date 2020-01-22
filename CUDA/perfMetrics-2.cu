@@ -45,9 +45,9 @@ int main(int argc, char** argv)
 	cudaEventCreate(&start);
 	cudaEventCreate(&stop);
 
-	cudaEventRecord(start);
+	cudaEventRecord(start, 0);
 	saxpy<<<blockNum, blockSize>>>(arrSize, a, dX, dY);
-	cudaEventRecord(stop);
+	cudaEventRecord(stop, 0);
 	cudaMemcpy(Y, dY, byteSize, cudaMemcpyDeviceToHost);
 
 	cudaEventSynchronize(stop);
