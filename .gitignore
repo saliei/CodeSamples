@@ -1,0 +1,21 @@
+# Compiled sources #
+####################
+*.o
+*.so
+*.x
+*.xx
+*.out
+*.exe
+*.app
+*.dll
+
+# Python #
+##########
+.ipynb_checkpoints/
+.python-version
+profile_defaults/
+ipython_config.py
+.env
+.venv
+.spyderproject
+.spyproject
