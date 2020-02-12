@@ -71,7 +71,7 @@ int main(int argc, char** argv)
 	{
 		offset = i * strmSize;
 		cudaMemcpyAsync(&dA[offset], &A[offset], strmBytes, cudaMemcpyHostToDevice, stream[i]);
-		arrAdd<<<strmSize/blockSize, blockSize>>>(dA, offset);
+		arrAdd<<<strmSize/blockSize, blockSize, 0, stream[i]>>>(dA, offset);
 		cudaMemcpyAsync(&A[offset], &dA[offset], strmBytes, cudaMemcpyDeviceToHost, stream[i]);
 	}
 	cudaEventRecord(stop, 0);
@@ -91,7 +91,7 @@ int main(int argc, char** argv)
 	for(i = 0; i < numStrms; ++i)
 	{
 		offset = i * strmSize;
-		arrAdd<<<strmSize/blockSize, blockSize>>>(dA, offset);
+		arrAdd<<<strmSize/blockSize, blockSize, 0, stream[i]>>>(dA, offset);
 	}
 	for(i = 0; i < numStrms; ++i)
 	{
