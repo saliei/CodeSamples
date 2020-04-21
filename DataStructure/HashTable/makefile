@@ -13,9 +13,15 @@ all: $(EXE)
 %.x:
 	$(CC) $(CFLAGS) $^ -o $@
 
-.PHONY: all clean
+.PHONY: all clean run mem
 
 clean:
 	rm -f $(OBJ) $(EXE)
+
+run: $(EXE)
+	./$(EXE)
+
+mem: $(EXE)
+	valgrind --leak-check=full -s ./$(EXE) 
 
 test.x: hash_table.o test.o
