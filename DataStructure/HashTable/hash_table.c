@@ -40,4 +40,23 @@ void del_table(table* t)
     free(t);
 }
 
+static int hash(const char* s, const int a, const int m)
+{
+    long hash = 0;
+    const int len_s = strlen(s);
+    for(int i=0; i < len_s; ++i)
+    {
+        hash += (long)pow(a, len_s-(i+1)) * s[i];
+        hash %= m;
+    }
 
+    return (int)hash;
+}
+
+static int get_hash(const char* s, const int num_buckets, const int attempt)
+{
+    const int hash_1 = hash(s, PRIME_1, num_buckets);
+    const int hash_2 = hash(s, PRIME_2, num_buckets);
+    
+    return (hash_1 + (1 + hash_2) * attempt) % num_buckets;
+}
