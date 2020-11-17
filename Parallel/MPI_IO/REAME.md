@@ -4,6 +4,7 @@
 
 * a repo for introdctory MPI/IO operations examples: [wklio/mpi-io-examples](https://github.com/wkliao/mpi-io-examples)
 
-* Important APIs calls used:
-    -`MPI_File_open`, `MPI_File_close`, `MPI_File_close`;
-    - 
+### Important APIs calls used:
+    * `MPI_File_open`,
+    * `MPI_File_close`, 
+    * `MPI_File_close` 
