@@ -19,3 +19,7 @@ ipython_config.py
 .venv
 .spyderproject
 .spyproject
+
+# Directories #
+# #############
+data/
