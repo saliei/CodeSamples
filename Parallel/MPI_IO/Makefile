@@ -10,13 +10,13 @@ LIBS :=
 .c.o:
 	$(MPICC) $(CFLAGS) $(INCLUDES) -c $<
 
-all: mpi_collective_open
+all: mpi_collective_open.x
 
-mpi_collective_open: mpi_collective_open.o
+mpi_collective_open.x: mpi_collective_open.o
 	$(MPICC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS)
 
 clean:
 	rm -rf *.o test_mpi_io.dat \
-	mpi_collective_open
+	mpi_collective_open.x
 
 .PHONY: clean
