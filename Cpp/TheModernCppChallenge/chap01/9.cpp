@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <iterator>
 
 template <typename T>
 bool isPrime(T num)
@@ -32,7 +33,9 @@ int main(int argc, char **argv)
     std::cin >> num;
 
     auto primes = getPrimes(num);
-    for(auto const &p: primes)
-        std::cout << p << ", ";
-    std::cout << std::endl;
+    //for(auto const &p: primes)
+        //std::cout << p << ", ";
+    //std::cout << std::endl;
+    
+    std::copy(primes.begin(), primes.end(), std::ostream_iterator<long int>(std::cout, ", "));
 }
