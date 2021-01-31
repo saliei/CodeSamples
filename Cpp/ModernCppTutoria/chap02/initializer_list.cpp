@@ -52,7 +52,7 @@ int main(int argc, char **argv)
     std::cout << std::endl;
 
     std::cout << "magic foo2: ";
-    for(std::vector<int>::iterator itr = mfooi2.vec.begin(); itr != mfoo2.vec.end(); ++itr)
+    for(std::vector<int>::iterator itr = mfoo2.vec.begin(); itr != mfoo2.vec.end(); ++itr)
         std::cout << *itr << ", ";
     std::cout << std::endl;
 
