@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+// https://www.youtube.com/watch?v=Rr1NX1lH3oE&t=409s
+
 class Entity
 {
     public:
