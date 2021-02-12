@@ -1,0 +1,7 @@
+This a file sample to test
+
+fstream\0
+
+is it 
+working?\EOF
+EOF
