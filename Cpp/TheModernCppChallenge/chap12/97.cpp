@@ -5,11 +5,11 @@
 #include <map>
 
 
-#include "curlcpp/curl_easy.h"
-#include "curlcpp/curl_exception.h"
-#include "curlcpp/curl_ios.h"
-#include "curlcpp/curl_form.h"
-#include "nlohmann/json.hpp"
+#include <curlcpp/curl_easy.h>
+#include <curlcpp/curl_exception.h>
+#include <curlcpp/curl_ios.h>
+#include <curlcpp/curl_form.h>
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 
