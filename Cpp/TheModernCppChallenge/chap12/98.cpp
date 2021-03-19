@@ -131,7 +131,7 @@ class imap_connection
 int main()
 {
     imap_connection imap("imaps://imap.gmail.com", 993, 
-            "saeedsouth@gmail.com", "s@eALI2246743");
+            "saeedsouth@gmail.com", "00000");
 
     auto folders = imap.get_folders();
     std::cout << folders << std::endl;
