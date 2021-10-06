@@ -1,1 +1,4 @@
-I plot in python and forget some details about something later on, which i have done it. this is to store all the plots with their scripts, so when i want to so somethinf similar in the future, i can come back to this!
+### Plots
+
+ I usuallt plot in python and matplotlib, and forget some details about something later on.
+This is to store all the plots with their corresponding scripts.
