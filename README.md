@@ -1,2 +1,6 @@
 # CodeSamples
-various codes written in various times for various reasons, including practice, in no specific level, when got bored, just to keep them here!
+
+> Sample codes and scripts for learning, teaching, and testing materials.
+
+### Table of Contents
+- [Saliei.me](Saliei.me): Code snippets for personal website, [saliei.me](https://saeidaliei.com)
