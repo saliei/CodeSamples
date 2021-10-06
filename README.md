@@ -4,5 +4,13 @@
 
 ### Table of Contents
 - [Agorithms](Algorithms): Algorithms and data structures, implemented with C++.
+- [Cpp](Cpp): Modern C++ codes for testing and learning.
+- [Deep Learning](DeepLearning): Algorithms and tutorials for DL and various frameworks.
+- [Extra](Extra): Extra materials, and frameworks, e.g. Docker.
+- [Fortran](Fortran): Fortan materials for testing and learning.
+- [Java](Java): Simple Java applications and code snippets.
+- [Parallel Programming](Parallel): Parallel programming materials with `CUDA`, `MPI`, and `OpenMPI`.
 - [Plots](Plots): Plotting scripts, mostly in Python and with matplotlib.
+- [Python](Python): Python tips and tricks scripts.
+- [Scripts](Scripts): Handy scripts, mostly with `bash`.
 - [Saliei.me](Saliei.me): Code snippets for personal website, [saliei.me](https://saeidaliei.com)
