@@ -20,6 +20,10 @@ ipython_config.py
 .spyderproject
 .spyproject
 
+# Test notebooks #
+##################
+Untitled.ipynb
+
 # Directories #
 # #############
 data/
