@@ -5,7 +5,7 @@
 ### Table of Contents
 - [Agorithms](Algorithms): Algorithms and data structures, implemented with C++.
 - [Cpp](Cpp): Modern C++ codes for testing and learning.
-- [Deep Learning](DeepLearning): Algorithms and tutorials for DL and various frameworks.
+- [Dot Files](DotFiles): Various config files.
 - [Extra](Extra): Extra materials, and frameworks, e.g. Docker.
 - [Fortran](Fortran): Fortan materials for testing and learning.
 - [Java](Java): Simple Java applications and code snippets.
