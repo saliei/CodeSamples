@@ -1,0 +1,25 @@
+set nocompatible
+filetype off
+syntax on
+set tabstop=4
+set expandtab
+set shiftwidth=4
+set shell=/bin/bash
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/nerdtree'
+Plugin 'preservim/nerdcommenter'
+
+call vundle#end()
+filetype plugin indent on
+
+" open a NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" directory arrows display as blocks
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '~'
+map <C-q> :NERDTreeToggle<CR>
