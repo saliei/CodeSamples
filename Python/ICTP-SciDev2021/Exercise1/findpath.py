@@ -7,6 +7,8 @@ import numpy as np
 
 # unit tests
 
+# TODO: make path unique
+
 
 
 arr = np.array([[1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
@@ -17,13 +19,14 @@ arr = np.array([[1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
 
 
 source = (0, 0)
-target = (0, 1)
+target = (1, 1)
 
 start = source
 end = target
 goal = target
 
 maxDepth = 40
+
 
 path = []
 
@@ -34,9 +37,15 @@ def is_target(node, target):
 
 def is_valid(grid, node):
     i, j = node
-    if (i < 0 or j < 0) or \
-            (i >= grid.shape[0] or j >= grid.shape[1]) or \
-            grid[node] == 0:
+    # if (i < 0 or j < 0) or \
+            # (i >= grid.shape[0] or j >= grid.shape[1]) or \
+            # grid[node] == 0:
+        # return False
+    if i < 0 or j < 0:
+        return False
+    if i >= grid.shape[0] or j >= grid.shape[1]:
+        return False
+    if grid[node] == 0:
         return False
     return True
 
@@ -60,53 +69,56 @@ def has_path(grid, visited, node, target):
         if is_target(node, target) or has_path(grid, visited, child, target):
             visited[node] = 1
             path.append(node)
-    return visited, visited[node] == 1
+    return path, visited[node] == 1
 
 def find_path(grid, source, target):
     visited = np.full(grid.shape, -1)
-    visited, has = has_path(grid, visited, source, target)
-    return visited, has
+    path, result = has_path(grid, visited, source, target)
+    return path, result
 
 
-def DLS(graph, path, goal, depth, expanded):
-    node = path[-1]
 
-    if node == goal:
-        return path
-
+def dls(grid, road, target, depth, visited):
+    node = road[-1]
+    if is_target(node, target):
+        return road
     if depth <= 0:
         return None
 
-    for child in range(len(graph[node])):
-        if graph[node][child] != 0:
-            if child not in path:
-                expanded.append(child)
-                new_path = path.copy()
-                new_path.append(child)
-                next_path = DLS(graph, new_path, goal, depth - 1, expanded)
-                if next_path is not None:
-                    return next_path
+    children = get_children(grid, node)
+    for child in children:
+        if child not in road:
+            visited.append(child)
+            new_path = path.copy()
+            new_path.append(child)
+            next_path = dls(grid, new_path, target, depth-1, visited)
+            if next_path is not None:
+                return next_path
 
 
-def IDS_Algorithm(graph, start, goal):
-    expandedSet = []
-    expanded = []
-    for i in range(maxDepth):
-        expanded.clear()
-        expanded.append(start)
-        path = DLS(graph, [start], goal, i, expanded)
-        if expanded not in expandedSet:
-            expandedSet.append(expanded.copy())
-        if path is None:
+def ids(grid, source, target):
+    max_depth = 10
+    visited_set = []
+    visited = []
+    for depth in range(max_depth):
+        visited.append(source)
+        road = dls(grid, [start], target, depth, visited)
+        if visited not in visited_set:
+            visited_set.append(visited.copy())
+        if road is None:
             continue
-        return expandedSet, path
-    return expandedSet, None
+        return visited_set, road
+    return visited_set, None
 
 
 if __name__ == "__main__":
-    visited, result = find_path(arr, source, target)
+    # path, result = find_path(arr, source, target)
     # vis = np.full(arr.shape, -1) 
     # result = __has_path(arr, vis)
-
-    print(visited)
+        
+    _set, result = ids(arr, source, target)
+    print(_set)
     print(result)
+
+    # print(path)
+    # print(result)
