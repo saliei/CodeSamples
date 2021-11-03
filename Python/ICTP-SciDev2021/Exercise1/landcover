@@ -2,9 +2,8 @@
 
 import sys
 from typing import NoReturn
-from utils import load_data, get_args, \
-        land_or_water, plot_data, \
-        load_earthquakes
+from utils import load_data, get_args, plot_data
+from utils import load_earthquakes, land_or_water
 
 mapfile = "gl-latlong-1km-landcover.bsq"
 earthquakefile = "events_4.5.txt"
