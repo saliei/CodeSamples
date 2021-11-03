@@ -1,3 +1,5 @@
-### Python
+## Python
 
-Cool and worthy to learn python tips and tricks.
+Python sample codes and notes.
+
+
