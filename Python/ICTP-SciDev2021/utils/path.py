@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 
-from collections import deque
-from utils.land import load_data
-import numpy as np
-import dask.array as ds
 from utils.land import load_data, get_index
+from collections import deque
+import dask.array as ds
+import numpy as np
 #from dask.distributed import Client
 #from dask.diagnostics import ProgressBar
 
@@ -40,6 +39,8 @@ from utils.land import load_data, get_index
 # TODO: find a way to work with large grids!
 # TODO: maybe at end we have to coarsen the map!
 # if you can't find a path between two land points you have to fly!
+# TODO: make a graph out of the grid to prun a lot of unneeded nodes with probably adjancy matrix!
+# TODO: a class that makes a graph out of a map, if weighted takes the different landscape type into account!
 
 # algorithm name
 # ITERATIVE DEEPENING DEPTH LIMITED DEPTH FIRST SEARCH
