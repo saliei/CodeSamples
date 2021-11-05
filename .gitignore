@@ -19,11 +19,16 @@ ipython_config.py
 .venv
 .spyderproject
 .spyproject
+*pycache*
 
 # Test notebooks #
 ##################
 Untitled.ipynb
 
 # Directories #
-# #############
+###############
 data/
+
+# Data Files #
+##############
+*.bsq
