@@ -37,6 +37,8 @@ from utils.land import load_data, get_index
 # https://eddmann.com/posts/using-iterative-deepening-depth-first-search-in-python/
 # https://www.baeldung.com/cs/iterative-deepening-vs-depth-first-search
 
+# TODO: find a way to work with large grids!
+
 # algorithm name
 # ITERATIVE DEEPENING DEPTH LIMITED DEPTH FIRST SEARCH
 
