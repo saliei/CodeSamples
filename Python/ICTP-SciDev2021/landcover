@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-import sys
-from typing import NoReturn
 from utils.land import load_data, get_args, plot_data
 from utils.land import load_earthquakes, land_or_water
+from typing import NoReturn
+import sys
 
 mapfile = "gl-latlong-1km-landcover.bsq"
 earthquakefile = "events_4.5.txt"
