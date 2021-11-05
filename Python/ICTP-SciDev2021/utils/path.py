@@ -38,6 +38,8 @@ from utils.land import load_data, get_index
 # https://www.baeldung.com/cs/iterative-deepening-vs-depth-first-search
 
 # TODO: find a way to work with large grids!
+# TODO: maybe at end we have to coarsen the map!
+# if you can't find a path between two land points you have to fly!
 
 # algorithm name
 # ITERATIVE DEEPENING DEPTH LIMITED DEPTH FIRST SEARCH
@@ -156,42 +158,3 @@ def iddldfs(grid, source, target):
         if result != "CUTOFF":
             return visited, result
 
-
-if __name__ == "__main__":
-    arr = np.array([[1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
-                    [0, 1, 1, 1, 0, 1, 0, 1, 1, 0],
-                    [1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
-                    [1, 0, 0, 0, 1, 1, 0, 1, 1, 1],
-                    [1, 1, 0, 0, 0, 1, 1, 1, 0, 0]])
-
-    source = (1, 7)
-    target = (2, 5)
-    # source = (0, 1)
-    # target = (2, 0)
-    # target = (3, 3)
-    # source = (10, 100)
-    # target = (400, 1500)
-
-    mapfile = "gl-latlong-1km-landcover.bsq"
-    mapdata = load_data(mapfile)
-    mapdata = ds.from_array(mapdata)
-    mapdata[mapdata > 0] = 1
-    src_lat = 48.9
-    src_lon = 9.13
-    # source = get_index(src_lat, src_lon)
-    end_lat = 50
-    end_lon = 15
-    # target = get_index(end_lat, end_lon)
-    
-    # path, result = find_path(arr, source, target)
-
-    # visited, result = iddldfs(mapdata, source, target)
-    
-    # visited, result = dfs_iterative(arr, source, target)
-    # visited, result = dfs_recursive(arr, source, target)
-    # visited, result = dldfs(arr, source, target)
-    visited, result = iddldfs(arr, source, target)
-    
-
-    print(result)
-    print(visited)
