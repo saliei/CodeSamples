@@ -41,6 +41,7 @@ import numpy as np
 # if you can't find a path between two land points you have to fly!
 # TODO: make a graph out of the grid to prun a lot of unneeded nodes with probably adjancy matrix!
 # TODO: a class that makes a graph out of a map, if weighted takes the different landscape type into account!
+# TODO: if point is on water, children should be only grid points where it is 0, so go by boat, walk, fly, swim
 
 # algorithm name
 # ITERATIVE DEEPENING DEPTH LIMITED DEPTH FIRST SEARCH
@@ -87,9 +88,13 @@ def is_valid(grid, node):
 # boundary condition?
 def get_children(grid, node):
     i, j = node
-    children = [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]
-    children = [child for child in children if is_valid(grid, child)]
-
+    # if it's water can't walk
+    # no direction from 0 to 1
+    if grid[node] == 0:
+        children = []
+    else:
+        children = [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]
+        children = [child for child in children if is_valid(grid, child)]
     return children
 
 
