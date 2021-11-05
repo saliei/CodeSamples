@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
-import numpy as np
-import dask.array as ds
 from collections import deque
 from utils.land import load_data
-
+import numpy as np
+import dask.array as ds
+from utils.land import load_data, get_index
+#from dask.distributed import Client
+#from dask.diagnostics import ProgressBar
 
 # from utils.land import ...
 # from utils.path import dfs, ...
@@ -21,16 +23,34 @@ from utils.land import load_data
 # https://www.baeldung.com/cs/iterative-deepening-vs-depth-first-search
 # test ravel and unravel for speed
 # test stack limit, ulimit -s unlimited
+# distributed and parallel version with dask, client, ... to benchmark...
 
-np_arr = np.array([[1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
-                [0, 1, 1, 1, 0, 1, 0, 1, 1, 0],
-                [1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
-                [1, 0, 0, 0, 1, 1, 0, 1, 1, 1],
-                [1, 1, 0, 0, 0, 1, 1, 1, 0, 0]])
+# TODO: see stack and deque and queue efficiencies?
+# TODO: validity and goal checking in a separate function
+# DFS, IDDLS, BFS, Dijkstra?
+# BFS in a graph with no weight and direction is the same as Dijkstra(weight=1, one direction)
+# DFS doesn't find the shortest path necessarily!! simple test: start=(0, 6), end=(2, 5)
+# https://stackoverflow.com/questions/14784753/shortest-path-dfs-bfs-or-both
+# TODO: guess the max_depth depending on the distance between points to optimize it a bit.
+# strange cases: start=(0, 0), end=(0, 2)
+# make checking for validity simple, by using hard cases for edges , etc.
+# https://eddmann.com/posts/using-iterative-deepening-depth-first-search-in-python/
+# https://www.baeldung.com/cs/iterative-deepening-vs-depth-first-search
+
+# algorithm name
+# ITERATIVE DEEPENING DEPTH LIMITED DEPTH FIRST SEARCH
+
+# in a satellite navigation system this will cost us, and it's not
+# a very smart way of searching paths
+
+
+#originmap[x+1,y]=np.ravel_multi_index([x,y], (max_val,max_val))
+
+# client = Client(n_workers=4, processes=False, threads_per_worker=1)
+
 
 # for this case np is much faster than ds
 # arr = ds.from_array(np_arr)
-arr = np_arr
 
 
 # mapfile = "gl-latlong-1km-landcover.bsq"
@@ -38,13 +58,6 @@ arr = np_arr
 # mapdata = mapdata[:1000, :2000]
 # mapdata[mapdata > 0] = 1
 
-# source = (1, 7)
-# target = (2, 5)
-source = (0, 1)
-target = (2, 0)
-# target = (3, 3)
-# source = (10, 100)
-# target = (400, 1500)
 
 
 def is_target(node, target):
@@ -75,27 +88,6 @@ def get_children(grid, node):
     return children
 
 
-def has_path(grid, visited, node, target):
-    if visited[node] >= 0:
-        return False
-    visited[node] = 0
-
-    children = get_children(grid, node)
-    for child in children:
-        if is_target(node, target) or has_path(grid, visited, child, target):
-            visited[node] = 1
-            path.append(node)
-
-    return path, visited[node] == 1
-
-
-def find_path(grid, source, target):
-    visited = np.full(grid.shape, -1)
-    path, result = has_path(grid, visited, source, target)
-
-    return path, result
-
-
 # this is iterative but not recursive
 # visited should be a set or something
 def dfs_iterative(grid, source, target):
@@ -118,7 +110,6 @@ def dfs_iterative(grid, source, target):
 def dfs_recursive(grid, node, target, visited=deque()):
     visited.append(node)
     if is_target(node, target):
-        print("target reached")
         return visited, True
     children = get_children(grid, node)
     for child in children:
@@ -139,7 +130,7 @@ def dldfs(grid, source, target, limit=100):
 
     depth = 0
     if depth >= limit:
-        # return visited, False
+        print("Depth limit reached.")
         return visited, "CUTOFF"
 
     while explore:
@@ -155,6 +146,7 @@ def dldfs(grid, source, target, limit=100):
 
     return visited, False
 
+
 def iddldfs(grid, source, target):
     max_depth = 1000
     for limit in range(max_depth):
@@ -164,39 +156,40 @@ def iddldfs(grid, source, target):
 
 
 if __name__ == "__main__":
-    # path, result = find_path(arr, source, target)
-    # vis = np.full(arr.shape, -1) 
-    # result = __has_path(arr, vis)
-        
-    # _set, result = ids(arr, source, target)
-    # print(_set)
-    # print(result)
+    arr = np.array([[1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
+                    [0, 1, 1, 1, 0, 1, 0, 1, 1, 0],
+                    [1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
+                    [1, 0, 0, 0, 1, 1, 0, 1, 1, 1],
+                    [1, 1, 0, 0, 0, 1, 1, 1, 0, 0]])
 
-    # print(path)
-    # print(result)
+    source = (1, 7)
+    target = (2, 5)
+    # source = (0, 1)
+    # target = (2, 0)
+    # target = (3, 3)
+    # source = (10, 100)
+    # target = (400, 1500)
 
-    # visited, result = dfs2(arr, source, target)
-    # visited, result = dfs2(mapdata, source, target)
-    # print(result)
-    # print(visited)
+    mapfile = "gl-latlong-1km-landcover.bsq"
+    mapdata = load_data(mapfile)
+    mapdata = ds.from_array(mapdata)
+    mapdata[mapdata > 0] = 1
+    src_lat = 48.9
+    src_lon = 9.13
+    # source = get_index(src_lat, src_lon)
+    end_lat = 50
+    end_lon = 15
+    # target = get_index(end_lat, end_lon)
     
-    # vis = np.full(arr.shape, False)
-    # visited, result = rec_dfs2(arr, vis, source, target)
-    # result = rec_dfs2(arr, vis, source, target)
-    # print(result)
-    # print(visited)
+    # path, result = find_path(arr, source, target)
 
-    # visited, result = rec_dfs4(arr, source, target)
-    # print(result)
-    # print(visited)
-
-    # result = dls2(arr, source, target)
-    # print(result)
-
-    # visited, result = dls5(arr, source, target)
-    # print(result)
-    # print(visited)
-
+    # visited, result = iddldfs(mapdata, source, target)
+    
+    # visited, result = dfs_iterative(arr, source, target)
+    # visited, result = dfs_recursive(arr, source, target)
+    # visited, result = dldfs(arr, source, target)
     visited, result = iddldfs(arr, source, target)
+    
+
     print(result)
     print(visited)
