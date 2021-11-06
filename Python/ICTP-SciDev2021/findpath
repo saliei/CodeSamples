@@ -6,6 +6,7 @@ from utils.path import dldfs, iddldfs
 import dask.array as ds
 import numpy as np
 
+# maybe use preserve functionality of dask to perform in memory  parallel
 
 if __name__ == "__main__":
     arr = np.array([[1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
@@ -28,6 +29,7 @@ if __name__ == "__main__":
     # mapdata = ds.from_array(mapdata)
     mapdata[mapdata > 0] = 1
     # map2[map2 > 0] = 1
+    mapdata = mapdata.astype(dtype=bool)
     src_lat = 48.9
     src_lon = 9.13
     source = get_index(src_lat, src_lon)
