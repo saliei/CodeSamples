@@ -7,6 +7,7 @@ import dask.array as ds
 import numpy as np
 
 # maybe use preserve functionality of dask to perform in memory  parallel
+# maybe just look at the vicinity of the source and target!
 
 if __name__ == "__main__":
     arr = np.array([[1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
@@ -17,8 +18,8 @@ if __name__ == "__main__":
 
     # source = (1, 7)
     # target = (2, 5)
-    source = (0, 1)
-    target = (2, 0)
+    # source = (0, 1)
+    # target = (2, 0)
     # target = (3, 3)
     # source = (10, 100)
     # target = (400, 1500)
@@ -36,6 +37,7 @@ if __name__ == "__main__":
     end_lat = 49.5
     end_lon = 10
     target = get_index(end_lat, end_lon)
+
 
     # grid = arr
     # grid = map2
