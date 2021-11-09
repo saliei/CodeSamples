@@ -1,6 +1,15 @@
 #!/usr/bin/env python
+"""Module file for exercise 1 for the ICTP SciDev2021 workshop.
+For the problem description refere to:
+https://corbetta.phys.tue.nl/pages/ictp-l21-121.html
+
+TODO:
+    * 
+
+"""
 
 from utils.land import load_data, get_index
+from typing import Union, Tuple, Deque, NoReturn
 from collections import deque
 import dask.array as ds
 import numpy as np
@@ -66,14 +75,24 @@ import numpy as np
 
 
 
-def is_target(node, target):
+def is_target(node: Tuple[int, int], target: Tuple[int, int]) -> bool:
+    """Check if the current node is the target node.
+
+    Args:
+        node (Tuple[int, int]): A tuple for the index of the current node.
+        target (Target[int, int]): A tuple for the index of the target node.
+
+    Returns:
+        bool: True if the node is the target, False otherwise.
+
+    """
     if node == target:
         return True
 
     return False
 
 
-def is_valid(grid, node):
+def is_valid(grid: np.ndarray , node: Tuple[int, int]) -> bool:
     i, j = node
     if i < 0 or j < 0:
         return False
@@ -86,7 +105,7 @@ def is_valid(grid, node):
 
 
 # boundary condition?
-def get_children(grid, node):
+def get_children(grid: np.ndarray, node: Tuple[int, int]) -> list[Tuple[int, int]]:
     i, j = node
     # if it's water can't walk
     # no direction from 0 to 1
@@ -100,7 +119,7 @@ def get_children(grid, node):
 
 # this is iterative but not recursive
 # visited should be a set or something
-def dfs_iterative(grid, source, target):
+def dfs_iterative(grid: np.ndarray, source: Tuple[int, int], target: Tuple[int, int]) -> Union[np.ndarray, bool]:
     explore = deque([source])
     visited = deque([source])
 
@@ -117,7 +136,7 @@ def dfs_iterative(grid, source, target):
     return visited, False
 
 
-def dfs_recursive(grid, node, target, visited=deque()):
+def dfs_recursive(grid: np.ndarray, node: Tuple[int, int], target: Tuple[int, int], visited:Deque[Tuple[int, int]] = deque()) -> Union[np.ndarray, bool]:
     visited.append(node)
     if is_target(node, target):
         return visited, True
@@ -134,7 +153,7 @@ def dfs_recursive(grid, node, target, visited=deque()):
 
 # visited nodes are more frequent
 # iterative depth limited depth-first search?
-def dldfs(grid, source, target, limit=100):
+def dldfs(grid: np.ndarray, source: Tuple[int, int], target: Tuple[int, int], limit: int = 100) -> Union[np.ndarray, bool]:
     explore = deque([source])
     visited = deque([source])
 
@@ -157,7 +176,7 @@ def dldfs(grid, source, target, limit=100):
     return visited, False
 
 
-def iddldfs(grid, source, target):
+def iddldfs(grid: np.ndarray, source: Tuple[int, int], target: Tuple[int, int]) -> Union[np.ndarray, bool]:
     max_depth = 1000
     for limit in range(max_depth):
         visited, result = dldfs(grid, source, target, limit)
