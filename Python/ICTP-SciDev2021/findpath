@@ -3,52 +3,45 @@
 from utils.land import load_data, get_index
 from utils.path import dfs_iterative, dfs_recursive
 from utils.path import dldfs, iddldfs
-import dask.array as ds
 import numpy as np
 
-# maybe use preserve functionality of dask to perform in memory  parallel
-# maybe just look at the vicinity of the source and target!
+
+mapfile = "gl-latlong-1km-landcover.bsq"
+
+test_grid = np.array([[1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
+                      [0, 1, 1, 1, 0, 1, 0, 1, 1, 0],
+                      [1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
+                      [1, 0, 0, 0, 1, 1, 0, 1, 1, 1],
+                      [1, 1, 0, 0, 0, 1, 1, 1, 0, 0]])
+
+source = (1, 7)
+target = (2, 5)
+
+src_lat = 48
+src_lon = 9
+tar_lat = 50
+tar_lat = 10
+# source = get_index(src_lat, src_lon)
+# target = get_index(tar_lat, tar_lon)
 
 if __name__ == "__main__":
-    arr = np.array([[1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
-                    [0, 1, 1, 1, 0, 1, 0, 1, 1, 0],
-                    [1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
-                    [1, 0, 0, 0, 1, 1, 0, 1, 1, 1],
-                    [1, 1, 0, 0, 0, 1, 1, 1, 0, 0]])
 
-    source = (1, 7)
-    target = (2, 5)
-    # source = (0, 1)
-    # target = (2, 0)
-    # target = (3, 3)
-    # source = (10, 100)
-    # target = (400, 1500)
+    mapdata = load_data(mapfile, lazyload=False)
 
-    mapfile = "gl-latlong-1km-landcover.bsq"
-    # mapdata = load_data(mapfile, lazyload=False)
-    # map2 = mapdata.copy()
-    # mapdata = ds.from_array(mapdata)
-    # mapdata[mapdata > 0] = 1
-    # map2[map2 > 0] = 1
-    # mapdata = mapdata.astype(dtype=bool)
-    src_lat = 48.9
-    src_lon = 9.13
-    # source = get_index(src_lat, src_lon)
-    end_lat = 49.5
-    end_lon = 10
-    # target = get_index(end_lat, end_lon)
-
-
-    grid = arr
-    # grid = map2
+    grid = test_grid
     # grid = mapdata
-    
     
     visited, result = dfs_iterative(grid, source, target)
     # visited, result = dfs_recursive(grid, source, target)
     # visited, result = dldfs(grid, source, target)
     # visited, result = iddldfs(grid, source, target)
-    
+
+    if result:
+        print("Path exists.")
+        print("Nodes:")
+        print(visited)
+    else:
+        print("Path does not exists.")
 
     print(result)
     print(visited)
