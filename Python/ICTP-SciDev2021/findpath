@@ -28,6 +28,7 @@ if __name__ == "__main__":
     mapdata = load_data(mapfile, lazyload=False)
 
     grid = test_grid
+    # mapdata[mapdata > 1] = 1
     # grid = mapdata
     
     visited, result = dfs_iterative(grid, source, target)
