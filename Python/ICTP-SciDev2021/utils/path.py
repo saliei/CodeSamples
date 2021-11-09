@@ -4,7 +4,7 @@ For the problem description refere to:
 https://corbetta.phys.tue.nl/pages/ictp-l21-121.html
 
 TODO:
-    * 
+    * Fix long search time for large grids.
 
 """
 
@@ -142,13 +142,11 @@ def get_children(grid: Union[np.ndarray, np.memmap], node: Tuple[int, int]) -> L
     return children
 
 
-# this is iterative but not recursive
-# visited should be a set or something
 def dfs_iterative(grid: Union[np.ndarray, np.memmap], source: Tuple[int, int], target: Tuple[int, int]) -> Union[np.ndarray, bool]:
-    """Iterative Depth-First Search Algorithm.
+    """Iterative Depth-First Search algorithm.
 
     This is the iterative DFS algorithm, it will explore nodes and find a path 
-    from source to target, if it exists.
+    from source to target, if it exists, iteratively.
 
     TODO:
         * Make visited nodes a unique collection, e.g. Set.
@@ -180,6 +178,25 @@ def dfs_iterative(grid: Union[np.ndarray, np.memmap], source: Tuple[int, int], t
 
 
 def dfs_recursive(grid: np.ndarray, node: Tuple[int, int], target: Tuple[int, int], visited:Deque[Tuple[int, int]] = deque()) -> Union[np.ndarray, bool]:
+    """Recursive Depth-First Search algorithm.
+
+    This is the recursive DFS algorithm, it will explore nodes and find a path 
+    from source to target, if it exists, recursively.
+
+    TODO:
+        * Make visited nodes a unique collection, e.g. Set.
+
+    Args:
+        grid (Union[np.ndarray, np.memmap]): The matrix for the map.
+        source (Tuple[int, int]): The starting point for the path.
+        target (Tuple[int, int]): The ending point for the path.
+        visited (Deque[Tuple[int, int]]): A deque of tuple containing the indices of visited nodes.
+
+    Returns:
+        Union[np.ndarray, bool]: The first element of the pack is the visited nodes, 
+            the second is a boolean, True if path exists, False if it doesn't.
+
+    """
     visited.append(node)
     if is_target(node, target):
         return visited, True
@@ -194,9 +211,26 @@ def dfs_recursive(grid: np.ndarray, node: Tuple[int, int], target: Tuple[int, in
     return visited, False
 
 
-# visited nodes are more frequent
-# iterative depth limited depth-first search?
 def dldfs(grid: np.ndarray, source: Tuple[int, int], target: Tuple[int, int], limit: int = 100) -> Union[np.ndarray, bool]:
+    """Depth-Limited Depth-First Search algorithm.
+
+    This is the depth-limited DFS algorithm, it will explore nodes and find a path 
+    from source to target, if it exists. Contrary to DFS, depth-limited DFS will first search 
+    all branches with a specific depth first, if target isn't reached, it will search other branches
+    with different depth. Compared to DFS, DLDFS has more visited nodes.
+
+
+    Args:
+        grid (Union[np.ndarray, np.memmap]): The matrix for the map.
+        source (Tuple[int, int]): The starting point for the path.
+        target (Tuple[int, int]): The ending point for the path.
+        limit (int, optional): Depth limit for branch exploration. Defaults to 100.
+
+    Returns:
+        Union[np.ndarray, bool]: The first element of the pack is the visited nodes, 
+            the second is a boolean, True if path exists, False if it doesn't.
+
+    """
     explore = deque([source])
     visited = deque([source])
 
@@ -220,6 +254,22 @@ def dldfs(grid: np.ndarray, source: Tuple[int, int], target: Tuple[int, int], li
 
 
 def iddldfs(grid: np.ndarray, source: Tuple[int, int], target: Tuple[int, int]) -> Union[np.ndarray, bool]:
+    """Iterative Deepening Depth-Limited Depth-First Search algorithm.
+
+    This is the iterative deepening depth-limited DFS algorithm, it will explore nodes and find the shortest path 
+    from source to target, if it exists. Compared to DLDFS algorithm, the deepening DLDFS will start searching all 
+    branches from 1 to a maximum depth, this will ensure that the found path will be the shortest one.
+
+    Args:
+        grid (Union[np.ndarray, np.memmap]): The matrix for the map.
+        source (Tuple[int, int]): The starting point for the path.
+        target (Tuple[int, int]): The ending point for the path.
+
+    Returns:
+        Union[np.ndarray, bool]: The first element of the pack is the visited nodes, 
+            the second is a boolean, True if path exists, False if it doesn't.
+
+    """
     max_depth = 1000
     for limit in range(max_depth):
         visited, result = dldfs(grid, source, target, limit)
