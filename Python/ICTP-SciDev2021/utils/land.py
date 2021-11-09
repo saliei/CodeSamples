@@ -14,6 +14,7 @@ from time import time
 import numpy as np
 import argparse
 
+
 def print_info(data: Union[np.ndarray, np.memmap], loadtime: float) -> None:
     """Function to print some useful information about the data.
 
