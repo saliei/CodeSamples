@@ -5,7 +5,6 @@ from utils.path import dfs_iterative, dfs_recursive
 from utils.path import dldfs, iddldfs
 import numpy as np
 
-
 mapfile = "gl-latlong-1km-landcover.bsq"
 
 test_grid = np.array([[1, 1, 0, 0, 1, 1, 1, 1, 0, 1],
@@ -43,5 +42,3 @@ if __name__ == "__main__":
     else:
         print("Path does not exists.")
 
-    print(result)
-    print(visited)
