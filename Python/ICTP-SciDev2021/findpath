@@ -16,8 +16,8 @@ if __name__ == "__main__":
                     [1, 0, 0, 0, 1, 1, 0, 1, 1, 1],
                     [1, 1, 0, 0, 0, 1, 1, 1, 0, 0]])
 
-    # source = (1, 7)
-    # target = (2, 5)
+    source = (1, 7)
+    target = (2, 5)
     # source = (0, 1)
     # target = (2, 0)
     # target = (3, 3)
@@ -25,23 +25,23 @@ if __name__ == "__main__":
     # target = (400, 1500)
 
     mapfile = "gl-latlong-1km-landcover.bsq"
-    mapdata = load_data(mapfile, lazyload=False)
+    # mapdata = load_data(mapfile, lazyload=False)
     # map2 = mapdata.copy()
     # mapdata = ds.from_array(mapdata)
-    mapdata[mapdata > 0] = 1
+    # mapdata[mapdata > 0] = 1
     # map2[map2 > 0] = 1
-    mapdata = mapdata.astype(dtype=bool)
+    # mapdata = mapdata.astype(dtype=bool)
     src_lat = 48.9
     src_lon = 9.13
-    source = get_index(src_lat, src_lon)
+    # source = get_index(src_lat, src_lon)
     end_lat = 49.5
     end_lon = 10
-    target = get_index(end_lat, end_lon)
+    # target = get_index(end_lat, end_lon)
 
 
-    # grid = arr
+    grid = arr
     # grid = map2
-    grid = mapdata
+    # grid = mapdata
     
     
     visited, result = dfs_iterative(grid, source, target)
