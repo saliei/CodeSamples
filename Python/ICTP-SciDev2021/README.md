@@ -4,4 +4,6 @@ This is the solution for the exercise 1 of the workshop.
 
 - TODO:
     * Download data if not in current directory.
+    * Fix for large grids.
+    * Plot the path.
 
