@@ -9,7 +9,7 @@ TODO:
 """
 
 from utils.land import load_data, get_index
-from typing import Union, Tuple, Deque, NoReturn
+from typing import Union, Tuple, Deque, List
 from collections import deque
 import dask.array as ds
 import numpy as np
@@ -92,7 +92,20 @@ def is_target(node: Tuple[int, int], target: Tuple[int, int]) -> bool:
     return False
 
 
-def is_valid(grid: np.ndarray , node: Tuple[int, int]) -> bool:
+def is_valid(grid: Union[np.ndarray, np.memmap] , node: Tuple[int, int]) -> bool:
+    """Check if the node exploring is a valid candidate.
+
+    If the node fallse outside of the grid boundary or the value of 
+    the grid for the node is 0 it is not a valid candidate.
+
+    Args:
+        grid (Union[np.ndarray, np.memmap]): The matrix for the map.
+        node (Tuple[int, int]): The tuple for the index of the node.
+
+    Returns:
+        bool: True if the node is valid candidate, False otherwise.
+
+    """
     i, j = node
     if i < 0 or j < 0:
         return False
@@ -105,7 +118,19 @@ def is_valid(grid: np.ndarray , node: Tuple[int, int]) -> bool:
 
 
 # boundary condition?
-def get_children(grid: np.ndarray, node: Tuple[int, int]) -> list[Tuple[int, int]]:
+def get_children(grid: Union[np.ndarray, np.memmap], node: Tuple[int, int]) -> List[Tuple[int, int]]:
+    """Function to get the neighbor nodes of the current node.
+
+    This function will explore the surrounding nodes, and will get the valid neighbors.
+
+    Args:
+        grid(Union[np.ndarray, np.memmap]): The matrix for the map.
+        node (Tuple[int, int]): The tuple for the index of the node.
+
+    Returns:
+        List[Tuple[int, int]]: A list containing the tuples of indices for the neighbor nodes.
+
+    """
     i, j = node
     # if it's water can't walk
     # no direction from 0 to 1
@@ -119,7 +144,25 @@ def get_children(grid: np.ndarray, node: Tuple[int, int]) -> list[Tuple[int, int
 
 # this is iterative but not recursive
 # visited should be a set or something
-def dfs_iterative(grid: np.ndarray, source: Tuple[int, int], target: Tuple[int, int]) -> Union[np.ndarray, bool]:
+def dfs_iterative(grid: Union[np.ndarray, np.memmap], source: Tuple[int, int], target: Tuple[int, int]) -> Union[np.ndarray, bool]:
+    """Iterative Depth-First Search Algorithm.
+
+    This is the iterative DFS algorithm, it will explore nodes and find a path 
+    from source to target, if it exists.
+
+    TODO:
+        * Make visited nodes a unique collection, e.g. Set.
+
+    Args:
+        grid (Union[np.ndarray, np.memmap]): The matrix for the map.
+        source (Tuple[int, int]): The starting point for the path.
+        target (Tuple[int, int]): The ending point for the path.
+
+    Returns:
+        Union[np.ndarray, bool]: The first element of the pack is the visited nodes, 
+            the second is a boolean, True if path exists, False if it doesn't.
+
+    """
     explore = deque([source])
     visited = deque([source])
 
