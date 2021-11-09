@@ -5,8 +5,8 @@ https://corbetta.phys.tue.nl/pages/ictp-l21-121.html
 TODO:
     * Fix long search time for large grids.
         * Smart search, only search a square grid containing the target and source nodes.
+        * Test dask arrays for parallel and distributed search.
         * Coarsen the grid.
-    * Test dask arrays for parallel and distributed search.
     * Expand to find a path if the source and target are in water.
     * Use a weighted graph, depending on the landscape with an appropriate weight.
 
@@ -59,11 +59,13 @@ def is_valid(grid: Union[np.ndarray, np.memmap] , node: Tuple[int, int]) -> bool
     return True
 
 
-# boundary condition?
 def get_children(grid: Union[np.ndarray, np.memmap], node: Tuple[int, int]) -> List[Tuple[int, int]]:
     """Function to get the neighbor nodes of the current node.
 
     This function will explore the surrounding nodes, and will get the valid neighbors.
+
+    TODO:
+        * The boundary condition should be a spherical mapping.
 
     Args:
         grid(Union[np.ndarray, np.memmap]): The matrix for the map.
@@ -74,8 +76,6 @@ def get_children(grid: Union[np.ndarray, np.memmap], node: Tuple[int, int]) -> L
 
     """
     i, j = node
-    # if it's water can't walk
-    # no direction from 0 to 1
     if grid[node] == 0:
         children = []
     else:
