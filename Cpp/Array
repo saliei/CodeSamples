@@ -1,0 +1,20 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+
+     int i[4];
+    for (int j=0;j<=4;j++)
+    {
+        cout<<"enter the elements of the array;"<<endl;
+        cin>>i[j];
+    }
+    for (int j=0;j<=4;j++)
+    {
+        cout<<"The values of arrays are:"<<i[j]<<endl;
+    }
+
+    return 0;
+}
