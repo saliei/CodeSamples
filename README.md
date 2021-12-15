@@ -13,4 +13,3 @@
 - [Plots](Plots): Plotting scripts, mostly in Python and with matplotlib.
 - [Python](Python): Python tips and tricks scripts.
 - [Scripts](Scripts): Handy scripts, mostly with `bash`.
-- [Saliei.me](Saliei.me): Code snippets for personal website, [saliei.me](https://saeidaliei.com)
