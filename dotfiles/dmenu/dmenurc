@@ -7,7 +7,6 @@
 DMENU_FN="EnvyCodeR:size=11"
 
 ## background colour for unselected menu-items
-#DMENU_NB="#222D31"
 DMENU_NB="#222D31"
 
 ## textcolour for unselected menu-items
@@ -15,8 +14,7 @@ DMENU_NF="#F9FAF9"
 
 ## background colour for selected menu-items
 #DMENU_SB="#16A085"
-#DMENU_SB="#cc3908"
-DMENU_SB="#a12902"
+DMENU_SB="#D94010"
 
 ## textcolour for selected menu-items
 DMENU_SF="#F9FAF9"
