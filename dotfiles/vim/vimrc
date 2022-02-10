@@ -1,10 +1,22 @@
+set shell=/bin/bash
 set nocompatible
 filetype off
 syntax on
 set tabstop=4
 set expandtab
 set shiftwidth=4
-set shell=/bin/bash
+set number
+set nowrap
+set ruler
+"set t_Co=256
+
+"set is hls
+" don't highlight all mathces
+set is
+
+" make sure to use python3
+if has('python3')
+endif
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -12,14 +24,99 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdtree'
 Plugin 'preservim/nerdcommenter'
+Plugin 'justinmk/vim-syntax-extra'
+Plugin 'iamcco/markdown-preview.nvim'
+Plugin 'morhetz/gruvbox'
+Plugin 'mhinz/vim-startify'
+Plugin 'kh3phr3n/python-syntax'
+Plugin 'elzr/vim-json'
+Plugin 'pangloss/vim-javascript'
+Plugin 'TovarishFin/vim-solidity'
+"Plugin 'cormacrelf/vim-colors-github'
+"Plugin 'wfxr/minimap.vim'
 
 call vundle#end()
+
+
+"colorscheme github
+" use a slightly darker background, like GitHub inline code blocks
+"let g:github_colors_soft = 1
+
+" use the dark theme
+set background=dark
+
+" more blocky diff markers in signcolumn (e.g. GitGutter)
+"let g:github_colors_block_diffmark = 0
+
 filetype plugin indent on
 
 " open a NERDTree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " directory arrows display as blocks
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '~'
-map <C-q> :NERDTreeToggle<CR>
+map <C-a> :NERDTreeToggle<CR>
+
+" ycm options
+let g:ycm_show_diagnostics_ui = 0 
+let g:ycm_autoclose_preview_window_after_completion = 1 
+let g:ycm_disable_for_files_larger_than_kb = 10000
+let g:ycm_always_populate_location_list = 1
+"let g:ycm_python_binary_path = '/home/saliei/Documents/pyenvs/dpl/bin/python'
+"let g:ycm_server_python_interpreter = '/home/saliei/Documents/pyenvs/dpl/bin/python'
+let g:ycm_global_ycm_extra_conf="~/.vim/.ycm_extra_conf.py"
+"let g:enable_ycm_at_startup = 0
+
+" python syntax highlight options
+let python_self_cls_highlight = 1
+
+" folding
+set foldmethod=syntax
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+
+" jump to the last postition when reopening a file
+if has("autocmd")
+  augroup redhat
+  autocmd!
+  " When editing a file, always jump to the last cursor position
+  autocmd BufReadPost *
+  \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+  \   exe "normal! g'\"" |
+  \ endif
+  augroup END
+endif
+
+"if filereadable(expand("~/.vimrc_background"))
+  "let base16colorspace=256
+  "source ~/.vimrc_background
+"endif
+"
+set backspace=indent,eol,start  " more powerful backspacing
+
+highlight PreProc  cterm=NONE ctermfg=cyan   gui=NONE guifg=cyan
+highlight String   cterm=NONE ctermfg=red    gui=NONE guifg=red
+highlight Comment  cterm=NONE ctermfg=DarkGray
+highlight Type     cterm=NONE ctermfg=green   gui=NONE guifg=green
+highlight Special  cterm=NONE ctermfg=Magenta gui=NONE guifg=Magenta
+highlight SpellBad ctermbg=23 ctermfg=7
+highlight Visual   ctermbg=NONE     cterm=reverse gui=reverse guifg=Grey guibg=fg
+highlight LineNr ctermfg=238
+"highlight Normal ctermbg=0
+" background color for autocomplete popup
+highlight Pmenu ctermbg=gray guibg=gray
+highlight PmenuSel   ctermfg=White guifg=White
+" turn off highlight for sign gutter
+highlight clear SignColumn
+highlight YcmWarningSection ctermbg=Red ctermfg=black
+highlight YcmErrorSection ctermbg=Red ctermfg=black
+highlight Directory  ctermfg=Blue     guifg=DarkBlue
+highlight ErrorMsg   ctermfg=White     guifg=Red
+highlight WarningMsg ctermfg=Red      guifg=Red
+highlight MoreMsg    ctermfg=Red    gui=bold guifg=Red
+highlight Title      ctermfg=Blue  gui=bold guifg=DarkBlue
+"highlight StatusLine cterm=bold       ctermbg=blue ctermfg=blue guibg=blue guifg=blue
+highlight htmlLink cterm=Underline ctermfg=Blue guifg=blue
+highlight VertSplit cterm=NONE ctermfg=244
