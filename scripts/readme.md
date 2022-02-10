@@ -1,3 +1,3 @@
 ### Scripts
 
-Various handy bash scripts.
+> Various helper scripts.
