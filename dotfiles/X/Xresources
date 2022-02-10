@@ -9,7 +9,6 @@ Xft.lcdfilter: lcddefault
 XTerm*background:        #222D31
 XTerm*foreground:        #d8d8d8
 XTerm*pointerColor:      #1ABB9B
-!XTerm*pointerColor:      #1b6d96
 XTerm*faceName:          Fixed
 XTerm*faceSize:          11
 XTerm*reverseVideo:      on
@@ -24,86 +23,41 @@ XTerm*selectToClipboard: true
 *pointerColorForeground:          #16A085
 
 !! black dark/light
-!*color0:                          #222D31
-!*color8:                          #585858
+*color0:                          #222D31
+*color8:                          #585858
 
-!!! red dark/light
-!!*color1:                          #ab4642
-!!*color1:                          #fc1008
-!!*color1:                          #b81009
-!*color1:                          #b50724
-!!*color9:                          #ab4642
-!!*color9:                          #fc1008
-!!*color9:                          #b81009
-!*color9:                          #b50724
+!! red dark/light
+*color1:                          #ab4642
+*color9:                          #ab4642
 
+!! green dark/light
+*color2:                          #7E807E
+*color10:                         #8D8F8D
 
-!!! green dark/light
-!*color2:                          #7E807E
-!*color10:                         #8D8F8D
+!! yellow dark/light
+*color3:                          #f7ca88
+*color11:                         #f7ca88
 
-!!! yellow dark/light
-!*color3:                          #f7ca88
-!*color11:                         #f7ca88
+!! blue dark/light
+*color4:                          #7cafc2
+*color12:                         #7cafc2
 
-!!! blue dark/light
-!*color4:                          #7cafc2
-!*color12:                         #7cafc2
+!! magenta dark/light
+*color5:                          #ba8baf
+*color13:                         #ba8baf
 
-!!! magenta dark/light
-!*color5:                          #ba8baf
-!*color13:                         #ba8baf
+!! cyan dark/light
+*color6:                          #1ABB9B
+*color14:                         #1ABB9B
 
-!!! cyan dark/light
-!*color6:                          #1ABB9B
-!*color14:                         #1ABB9B
-
-!!! white dark/light
-!*color7:                          #d8d8d8
-!*color15:                         #f8f8f8
-
-! special
-*.foreground:   #F9D792
-*.background:   #301D14
-*.cursorColor:  #ca8d67
-
-! black
-*.color0:       #d8a396
-*.color8:       #e54507
-
-! red
-*.color1:       #606432
-*.color9:       #b4c02d
-
-! green
-*.color2:       #9c5033
-*.color10:      #666666
-
-! yellow
-*.color3:       #ad2f1d
-*.color11:      #b04f41
-
-! blue
-*.color4:       #662038
-*.color12:      #81485c
-
-! magenta
-*.color5:       #6d826f
-*.color13:      #6d826f
-
-! cyan
-*.color6:       #ca8d67
-*.color14:      #ca8d67
-
-! white
-*.color7:       #9c6a5e
-*.color15:      #f4c0b2
+!! white dark/light
+*color7:                          #d8d8d8
+*color15:                         #f8f8f8
 
 Xcursor.theme: xcursor-breeze
 Xcursor.size:                     0
 
-!URxvt.font:                        9x15,xft:TerminessTTFNerdFontMono
-URxvt.font:                        xft:Envy Code R:size=11.5
+URxvt.font:                       9x15,xft:TerminessTTFNerdFontMono
 
 ! alternative font settings with 'terminus':
 ! URxvt.font:      -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
@@ -137,10 +91,21 @@ URxvt.keysym.Control-Up:          \033[1;5A
 URxvt.keysym.Shift-Control-Up:    \033[1;6A
 URxvt.keysym.Control-Down:        \033[1;5B
 URxvt.keysym.Shift-Control-Down:  \033[1;6B
-! Rxvt.perl-ext-common:             ...,clipboard
-! URxvt.keysym.M-C-c:               perl:clipboard:copy
-! URxvt.keysym.M-v:                 perl:clipboard:paste
-! URxvt.keysym.M-C-v:               perl:clipboard:paste_escaped
+
+URxvt.perl-ext-common:              default,clipboard,url-select,keyboard-select,font-size
+URxvt.copyCommand:                  xclip -i -selection clipboard
+URxvt.pasteCommand:                 xclip -o -selection clipboard
+URxvt.keysym.M-c:                   perl:clipboard:copy
+URxvt.keysym.M-v:                   perl:clipboard:paste
+URxvt.keysym.M-C-v:                 perl:clipboard:paste_escaped
+URxvt.keysym.M-Escape:              perl:keyboard-select:activate
+URxvt.keysym.M-s:                   perl:keyboard-select:search
+URxvt.keysym.M-u:                   perl:url-select:select_next
+URxvt.keysym.Control-Shift-Up:      font-size:increase
+URxvt.keysym.Control-Shift-Down:    font-size:decrease
+URxvt.urlLauncher:                  google-chrome-stable
+URxvt.underlineURLs:                true
+URxvt.urlButton:                    1
 ! URxvt*termName:                   string
 ! URxvt*geometry:                   geometry
 ! URxvt*chdir:                      string
@@ -222,7 +187,7 @@ URxvt.keysym.Shift-Control-Down:  \033[1;6B
 ! URxvt*internalBorder:             number
 ! URxvt*borderLess:                 true
 ! URxvt*lineSpace:                  number
-!URxvt*letterSpace:                -1
+! URxvt*letterSpace:                number
 ! URxvt*skipBuiltinGlyphs:          boolean
 ! URxvt*pointerBlankDelay:          number
 ! URxvt*backspacekey:               string
