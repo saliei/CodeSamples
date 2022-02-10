@@ -10,6 +10,7 @@
 - [i3](i3): `config`
 - [i3status](i3status): `config`
 - [mpv](mpv): `mpv.conf` and `input.conf`
+- [notes](notes): `config`
 - [picom](picom): `picom.conf`
 - [ranger](ranger): `rc.conf` and accompanying scripts
 - [redshift](redshift): `redshift.conf`
