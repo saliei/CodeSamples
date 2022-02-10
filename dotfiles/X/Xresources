@@ -69,7 +69,7 @@ XTerm*selectToClipboard: true
 
 ! black
 *.color0:       #d8a396
-*.color8:      #e54507
+*.color8:       #e54507
 
 ! red
 *.color1:       #606432
@@ -77,7 +77,7 @@ XTerm*selectToClipboard: true
 
 ! green
 *.color2:       #9c5033
-*.color10:       #666666
+*.color10:      #666666
 
 ! yellow
 *.color3:       #ad2f1d
@@ -103,8 +103,7 @@ Xcursor.theme: xcursor-breeze
 Xcursor.size:                     0
 
 !URxvt.font:                        9x15,xft:TerminessTTFNerdFontMono
-!URxvt.font:                        xft:Envy Code R:size=11.5
-URxvt.font:                        xft:Iosevka Term:size=11
+URxvt.font:                        xft:Envy Code R:size=11.5
 
 ! alternative font settings with 'terminus':
 ! URxvt.font:      -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
