@@ -7,6 +7,7 @@
 - [dmenu](dmenu): `.dmenurc` and `morce_menu_v1.conf`
 - [dunst](dunst): `dunstrc`
 - [fish](fish): `config.fish`
+- [fontconfig](fontconfig): `fonts.conf`
 - [i3](i3): `config`
 - [i3status](i3status): `config`
 - [mpv](mpv): `mpv.conf` and `input.conf`
