@@ -1,6 +1,6 @@
 configuration {
     modi: "drun,run,window,ssh";
-    font: "Envy Code R 11";
+    font: "Envy Code R 11.5";
     matching: "normal";
     drun-match-fields: "generic";
 }
