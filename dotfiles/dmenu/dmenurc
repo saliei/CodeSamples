@@ -3,7 +3,6 @@
 #
 
 ## define the font for dmenu to be used
-#DMENU_FN="Noto-10.5"
 DMENU_FN="EnvyCodeR:size=11"
 
 ## background colour for unselected menu-items
@@ -13,8 +12,7 @@ DMENU_NB="#222D31"
 DMENU_NF="#F9FAF9"
 
 ## background colour for selected menu-items
-#DMENU_SB="#16A085"
-DMENU_SB="#D94010"
+DMENU_SB="#2B444B"
 
 ## textcolour for selected menu-items
 DMENU_SF="#F9FAF9"
