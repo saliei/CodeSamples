@@ -32,7 +32,7 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec $terminal
 # start a floating terminal
-bindsym $mod+Shift+Return exec $terminal --window-style borderless --geometry 80x24 --title "floating"
+bindsym $mod+Shift+Return exec $terminal --window-style borderless
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -50,7 +50,7 @@ bindsym $mod+z exec --no-startup-id morc_menu
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
-#exec --no-startup-id volumeicon
+exec --no-startup-id volumeicon
 #bindsym $mod+Ctrl+m exec $terminal -e 'alsamixer'
 exec --no-startup-id start-pulseaudio-x11
 #exec --no-startup-id pa-applet
@@ -59,8 +59,23 @@ bindsym $mod+Ctrl+m exec pavucontrol
 ################################################################################################
 
 # Screen brightness controls
-# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+#bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+#bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+
+# Pulse Audio controls
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% 
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% 
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle 
+
+# Media player controls (mpc|playerctl)
+bindsym XF86AudioPlay  exec --no-startup-id mpc play
+bindsym XF86AudioPause exec --no-startup-id mpc pause
+bindsym XF86AudioNext  exec --no-startup-id mpc next
+bindsym XF86AudioPrev  exec --no-startup-id mpc prev
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec --no-startup-id ~/.local/bin/touchpadctl
+
 
 # Start Applications
 bindsym $mod+Ctrl+b exec $terminal -e 'bmenu'
@@ -68,7 +83,7 @@ bindsym $mod+F2 exec epiphany
 bindsym $mod+F3 exec nemo
 # bindsym $mod+F3 exec ranger
 #bindsym $mod+Shift+F3 exec pcmanfm_pkexec
-bindsym $mod+F5 exec $terminal -e 'mocp'
+bindsym $mod+F5 exec $terminal -e 'ncmpcpp'
 bindsym $mod+t exec --no-startup-id pkill picom
 bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
@@ -230,14 +245,14 @@ for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="Simple-scan"] floating enable border normal
 for_window [class="(?i)System-config-printer.py"] floating enable border normal
-for_window [class="Skype"] floating enable border normal
+for_window [class="Skype"] floating enable border pixel 1
 for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border pixel 1
 for_window [class="Xfburn"] floating enable
 for_window [class="mpv"] floating enable border none
 for_window [class="URxvt" instance="floating"] floating enable border pixel 1
 for_window [class="Viewnior"] floating enable border pixel 1
-for_window [class="Mousepad"] floating enable border pixel 0
+for_window [class="Mousepad"] floating enable border none
 for_window [title="Spotify"] floating enable border none
 for_window [class="File-roller"] floating enable
 for_window [class="MEGAsync"] floating enable border none
@@ -269,9 +284,10 @@ for_window [class="qtpad"] border pixel 1
 for_window [class="obsidian"] floating enable
 for_window [class="obs"] floating enable border pixel 1
 for_window [class="Ganache"] floating enable
-for_window [class="Subl"] floating enable
+for_window [class="Subl"] floating enable border pixel 1
 for_window [class="dde-file-manager"] floating enable border pixel 1
 for_window [class="Alacritty"] floating enable border pixel 1
+for_window [class="Lxappearance"] floating enable border pixel 1
 for_window [class="Tilix" title="floating"] floating enable border pixel 1
 
 # enable floating for google photos
@@ -380,23 +396,22 @@ exec --no-startup-id pamac-tray
 #exec --no-startup-id clipit
 exec --no-startup-id skypeforlinux
 exec --no-startup-id megasync
-exec --no-startup-id dropbox
-exec --no-startup-id slack
+#exec --no-startup-id dropbox
+#exec --no-startup-id slack
 #exec --no-startup-id mailspring
 exec --no-startup-id evolution
 exec --no-startup-id variety
 exec --no-startup-id redshift-gtk
 exec --no-startup-id blueman-applet
-#exec --no-startup-id start_conky_maia
-#exec --no-startup-id start_conky_green
 exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id sbxkb
+exec --no-startup-id "setxkbmap -layout us,ir"
+exec --no-startup-id "setxkbmap -option 'grp:alt_shift_toggle'"
+exec --no-startup-id "xset r rate 200 30"
+#exec --no-startup-id start_conky_maia
+exec_always --no-startup-id mpd
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
-exec_always --no-startup-id qtpad
-exec_always --no-startup-id sbxkb
-exec_always --no-startup-id "xset r rate 200 30"
-exec_always --no-startup-id "setxkbmap -layout us,ir"
-exec_always --no-startup-id "setxkbmap -option 'grp:alt_shift_toggle'"
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
