@@ -34,12 +34,10 @@ services:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
-    #depends_on:
-      #- app
 
   #MySQL Service
   db:
-    image: mysql:latest
+    image: mysql:5.7
     container_name: db
     restart: unless-stopped
     tty: true
@@ -47,8 +45,8 @@ services:
       - "3306:3306"
     environment:
       MYSQL_DATABASE: laravel
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: laravel
+      MYSQL_USER: laraveluser
+      MYSQL_PASSWORD: laraveluser
       MYSQL_ROOT_PASSWORD: root
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
