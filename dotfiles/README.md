@@ -8,6 +8,7 @@
 - [dunst](dunst): `dunstrc`
 - [fish](fish): `config.fish`
 - [fontconfig](fontconfig): `fonts.conf`
+- [gtk-3.0](gtk-3.0): `gtk.css`
 - [i3](i3): `config`
 - [i3status](i3status): `config`
 - [mpv](mpv): `mpv.conf` and `input.conf`
