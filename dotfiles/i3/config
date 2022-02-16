@@ -288,6 +288,7 @@ for_window [class="Subl"] floating enable border pixel 1
 for_window [class="dde-file-manager"] floating enable border pixel 1
 for_window [class="Alacritty"] floating enable border pixel 1
 for_window [class="Lxappearance"] floating enable border pixel 1
+for_window [class="Thunderbird"] border pixel 1
 for_window [class="Tilix" title="floating"] floating enable border pixel 1
 
 # enable floating for google photos
@@ -399,15 +400,17 @@ exec --no-startup-id megasync
 #exec --no-startup-id dropbox
 #exec --no-startup-id slack
 #exec --no-startup-id mailspring
-exec --no-startup-id evolution
+#exec --no-startup-id evolution
+exec --no-startup-id thunderbird
+exec --no-startup-id birdtray
 exec --no-startup-id variety
 exec --no-startup-id redshift-gtk
 exec --no-startup-id blueman-applet
 exec --no-startup-id xautolock -time 10 -locker blurlock
 exec --no-startup-id sbxkb
-exec --no-startup-id "setxkbmap -layout us,ir"
-exec --no-startup-id "setxkbmap -option 'grp:alt_shift_toggle'"
-exec --no-startup-id "xset r rate 200 30"
+exec --no-startup-id "setxkbmap -layout us,ir;"
+exec --no-startup-id "setxkbmap -option 'grp:alt_shift_toggle';"
+exec --no-startup-id "xset r rate 200 30;"
 #exec --no-startup-id start_conky_maia
 exec_always --no-startup-id mpd
 exec_always --no-startup-id ff-theme-util
