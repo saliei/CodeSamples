@@ -87,9 +87,9 @@ bindsym $mod+F5 exec $terminal -e 'ncmpcpp'
 bindsym $mod+t exec --no-startup-id pkill picom
 bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-bindsym Print exec --no-startup-id i3-scrot
-bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
-bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
+bindsym Print exec --no-startup-id deepin-screenshot
+#bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
+#bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
@@ -126,7 +126,7 @@ bindsym $mod+Shift+Right move right
 
 # workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth
+bindsym $mod+b workopace back_and_forth
 #bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 bindsym $mod+Shift+Tab --release exec --no-startup-id i3-gtnw; move container to workspace back_and_forth;
 # Alt + Tab functionality with rofi
@@ -268,6 +268,7 @@ for_window [class="Variety"] floating enable border none
 for_window [class="koodo-reader"] floating enable border none
 for_window [class="Xfce4-power-manager-settings"] floating enable border none
 for_window [class="Subl"] border none
+for_window [class="Code"] border pixel 1
 for_window [class="Clocks"] floating enable border normal
 for_window [class="Zenity"] floating enable border pixel 1
 for_window [class="Nm-applet"] border pixel 1
@@ -280,19 +281,20 @@ for_window [class="Libfm-pref-apps"] border pixel 1
 for_window [class="zoom"] floating enable border pixel 1
 for_window [class="org.jabref.gui.JabRefMain"] border none
 for_window [class="Google-chrome-stable"] border pixel 1
-for_window [class="Google-chrome"] border pixel 1
+for_window [class="Google-chrome"] border none
 for_window [class="Gnome-calculator"] floating enable border pixel 1
 for_window [class="MuPDF"] floating enable
 for_window [class="qtpad"] border pixel 1
 for_window [class="obsidian"] floating enable
 for_window [class="obs"] floating enable border pixel 1
 for_window [class="Ganache"] floating enable
-for_window [class="Subl"] floating enable border pixel 1
+for_window [class="Subl"] border pixel 1
 for_window [class="dde-file-manager"] floating enable border pixel 1
 for_window [class="Alacritty"] floating enable border pixel 1
 for_window [class="Lxappearance"] floating enable border pixel 1
 for_window [class="Thunderbird"] border pixel 1
-for_window [class="Tilix" title="floating"] floating enable border pixel 1
+for_window [class="Evolution"] border pixel 1
+for_window [class="Inkscape"] border pixel 1
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -383,10 +385,8 @@ exec --no-startup-id skypeforlinux
 exec --no-startup-id megasync
 #exec --no-startup-id dropbox
 #exec --no-startup-id slack
-#exec --no-startup-id mailspring
-#exec --no-startup-id evolution
-exec --no-startup-id thunderbird
-exec --no-startup-id birdtray
+exec --no-startup-id qtpad
+exec --no-startup-id mailspring
 exec --no-startup-id variety
 exec --no-startup-id redshift-gtk
 exec --no-startup-id blueman-applet
@@ -396,6 +396,8 @@ exec --no-startup-id "setxkbmap -layout us,ir;"
 exec --no-startup-id "setxkbmap -option 'grp:alt_shift_toggle';"
 exec --no-startup-id "xset r rate 200 30;"
 #exec --no-startup-id start_conky_maia
+exec --no-startup-id "conky -c ~/.config/conky/conky_maia"
+exec --no-startup-id "conky -c ~/.config/conky/conky_todo"
 exec_always --no-startup-id mpd
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
