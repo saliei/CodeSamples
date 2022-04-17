@@ -33,29 +33,33 @@
 #window {
     background-color:           @background-color;
     children:                   [mainbox];
-    width: 40%;
+    width:                      40%;
+    location:                   center;
+    anchor:                     center;
+    y-offset:                   100px;
 }
 
 #mainbox {
     border:                     0;
     orientation:                vertical;
-    children:                   [ entry,message,listview,mode-switcher  ];
+    children:                   [ entry,message,listview ];
 }
 
 #entry {
     expand:                     false;
     text-color:                 @normal-foreground;
-    padding:                    5px 0px 5px 5px ;                //padding between two lines
+    padding:                    5px 0px 5px 5px;
     border:                     0 0 1px;
     border-color:               grey;
     margin:                     10px;
+    font:                       "Ubuntu Mono Bold 16";
 }
 
 #sidebar {
-    expand: false;
+    expand:                     false;
 }
 
-#textbox {                                                      // mesg box
+#textbox {
     horizontal-align:           0;
     background-color:           silver;
     padding:                    10px 20px 10px 20px ;               
@@ -66,10 +70,10 @@
     border:                     0px 0px 0px ;
     border-color:               grey;
     padding:                    0px 0px 10px 0px;
-    lines: 8;
-    spacing: 5px;
+    lines:                      5;
+    spacing:                    5px;
+    border-radius:              15px;
 }
-
 
 #mode-switcher {
     border:                     1px 0px 0px 0px;
@@ -77,7 +81,7 @@
 }
 
 button { 
-    padding: 8px; 
+    padding:                    8px;
 }
 
 #button.selected {
@@ -86,57 +90,58 @@ button {
 }
 
 #element {
-    border: 0px;
-    padding: 5px;
-    margin: 0px;
+    border:                     0px;
+    padding:                    5px 5px 5px 15px;
+    margin:                     0px;
+    border-radius:              15px;
 }
 
 #element-text {
-    background-color: inherit;
-    text-color: inherit;
+    background-color:           inherit;
+    text-color:                 inherit;
 }
 
 #element.normal.normal {
-    background-color: @normal-background;
-    text-color:       @normal-foreground;
+    background-color:           @normal-background;
+    text-color:                 @normal-foreground;
 }
 
 #element.normal.urgent {
-    background-color: @urgent-background;
-    text-color:       @urgent-foreground;
+    background-color:           @urgent-background;
+    text-color:                 @urgent-foreground;
 }
 
 #element.normal.active {
-    background-color: @active-background;
-    text-color:       @active-foreground;
+    background-color:           @active-background;
+    text-color:                 @active-foreground;
 }
 
 #element.selected.normal {
-    background-color: @selected-normal-background;
-    text-color:       @selected-normal-foreground;
+    background-color:           @selected-normal-background;
+    text-color:                 @selected-normal-foreground;
 }
 
 #element.selected.urgent {
-    background-color: @selected-urgent-background;
-    text-color:       @selected-urgent-foreground;
+    background-color:           @selected-urgent-background;
+    text-color:                 @selected-urgent-foreground;
 }
 
 #element.selected.active {
-    background-color: @selected-active-background;
-    text-color:       @selected-active-foreground;
+    background-color:           @selected-active-background;
+    text-color:                 @selected-active-foreground;
 }
 
 #element.alternate.normal {
-    background-color: @alternate-normal-background;
-    text-color:       @alternate-normal-foreground;
+    background-color:           @alternate-normal-background;
+    text-color:                 @alternate-normal-foreground;
 }
 
 #element.alternate.urgent {
-    background-color: @alternate-urgent-background;
-    text-color:       @alternate-urgent-foreground;
+    background-color:           @alternate-urgent-background;
+    text-color:                 @alternate-urgent-foreground;
 }
 
 #element.alternate.active {
-    background-color: @alternate-active-background;
-    text-color:       @alternate-active-foreground;
+    background-color:           @alternate-active-background;
+    text-color:                 @alternate-active-foreground;
 }
