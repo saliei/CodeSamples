@@ -1,8 +1,8 @@
 configuration {
-    modi: "drun,run,window,ssh";
-    font: "Envy Code R 11.5";
+    modi: "drun";
+    font: "Ubuntu Mono Bold 13";
     matching: "normal";
     drun-match-fields: "generic";
 }
 
-@theme "~/.config/rofi/avasz-v2.rasi"
+@theme "~/.config/rofi/avasz.rasi"
