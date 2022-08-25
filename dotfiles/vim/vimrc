@@ -90,10 +90,11 @@ if has("autocmd")
 endif
 
 " working with csv files
-command Csv let width=20 | 
+command Csv let width=25 | 
             \ let fill = repeat(' ', width) | 
             \ %s/\([^,]*\),\=/\=strpart(submatch(1).fill, 0, width)/ge | 
-            \ %s/\s\+$//ge | set cursorline
+            \ %s/\s\+$//ge | 
+            \ set cursorline
 
 
 "if filereadable(expand("~/.vimrc_background"))
@@ -102,6 +103,18 @@ command Csv let width=20 |
 "endif
 "
 set backspace=indent,eol,start  " more powerful backspacing
+
+" add python virtualenv support
+py3 << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  with open(activate_this, "rb") as srcfile:
+    code = compile(srcfile.read(), activate_this, "exec")
+  exec(code, dict(__file__=activate_this))
+EOF
 
 highlight PreProc  cterm=NONE ctermfg=cyan   gui=NONE guifg=cyan
 highlight String   cterm=NONE ctermfg=red    gui=NONE guifg=red
@@ -127,3 +140,4 @@ highlight Title      ctermfg=Blue  gui=bold guifg=DarkBlue
 "highlight StatusLine cterm=bold       ctermbg=blue ctermfg=blue guibg=blue guifg=blue
 highlight htmlLink cterm=Underline ctermfg=Blue guifg=blue
 highlight VertSplit cterm=NONE ctermfg=244
+
