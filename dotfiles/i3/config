@@ -61,11 +61,16 @@ bindsym $mod+Ctrl+m exec pavucontrol
 # Screen brightness controls
 #bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
 #bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.local/bin/brightness_manualctl up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.local/bin/brightness_manualctl down
 
 # Pulse Audio controls
 #bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% 
 #bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% 
 #bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle 
+bindsym XF86AudioRaiseVolume exec  --no-startup-id ~/.local/bin/volctl up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.local/bin/volctl down
+bindsym XF86AudioMute exec --no-startup-id ~/.local/bin/volctl mute
 
 # Media player controls (mpc|playerctl)
 bindsym XF86AudioPlay  exec --no-startup-id mpc play
@@ -295,6 +300,10 @@ for_window [class="Lxappearance"] floating enable border pixel 1
 for_window [class="Thunderbird"] border pixel 1
 for_window [class="Evolution"] border pixel 1
 for_window [class="Inkscape"] border pixel 1
+for_window [class="Protonvpn"] floating enable
+for_window [class="Ulauncher"] floating enable border none
+for_window [class="Min"] border none
+for_window [class="Tilix"] border pixel 1
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -309,7 +318,8 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Set shut down, restart and locking features
-bindsym $mod+0 mode "$mode_system"
+bindsym $mod+Shift+w exec --no-startup-id rofi-powermenu
+#bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
@@ -332,6 +342,7 @@ mode "resize" {
         # Pressing left will shrink the window’s width.
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
+
         # Pressing down will grow the window’s height.
         bindsym j resize shrink width 5 px or 5 ppt
         bindsym k resize grow height 5 px or 5 ppt
@@ -357,7 +368,8 @@ set $sec HDMI-A-0
 # secondary display size
 set $sec_size 1920x1080
 
-bindsym $mod+Ctrl+d mode "$mode_displays"
+bindsym $mod+Shift+x exec --no-startup-id rofi-xrandr
+#bindsym $mod+Ctrl+d mode "$mode_displays"
 set $mode_displays (p)rimary, (s)econdary, (m)irror, (e)xtend
 mode "$mode_displays" {
     bindsym p exec --no-startup-id xrandr --output $prm --primary --output $sec --off
@@ -385,19 +397,19 @@ exec --no-startup-id skypeforlinux
 exec --no-startup-id megasync
 #exec --no-startup-id dropbox
 #exec --no-startup-id slack
-exec --no-startup-id qtpad
+#exec --no-startup-id qtpad
 exec --no-startup-id mailspring
 exec --no-startup-id variety
 exec --no-startup-id redshift-gtk
 exec --no-startup-id blueman-applet
 exec --no-startup-id xautolock -time 10 -locker blurlock
-exec --no-startup-id sbxkb
+#exec --no-startup-id sbxkb
 exec --no-startup-id "setxkbmap -layout us,ir;"
 exec --no-startup-id "setxkbmap -option 'grp:alt_shift_toggle';"
 exec --no-startup-id "xset r rate 200 30;"
 #exec --no-startup-id start_conky_maia
-exec --no-startup-id "conky -c ~/.config/conky/conky_maia"
-exec --no-startup-id "conky -c ~/.config/conky/conky_todo"
+#exec --no-startup-id "conky -c ~/.config/conky/conky_maia"
+#exec --no-startup-id "conky -c ~/.config/conky/conky_todo"
 exec_always --no-startup-id mpd
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
@@ -445,19 +457,20 @@ bar {
 
 	bindsym button4 nop
 	bindsym button5 nop
-    font xft:Envy Code R 11
+    #font xft:Envy Code R 11
+    font pango:JetBrainsMono Medium 10
 	strip_workspace_numbers yes
 
     colors {
         background #222D31
         statusline #F9FAF9
-        separator  #1793D1
+        separator  #090b0d
 
 #                          border  backgr. text
-        focused_workspace  #1793D1 #1793D1 #292F34
-        active_workspace   #595B5B #222D31 #FDF6E3
+        focused_workspace  #090b0d #090b0d #dfe6e9
+        active_workspace   #2b444d #2b444d #FDF6E3
         inactive_workspace #222D31 #222D31 #EEE8D5
-        binding_mode       #1793D1 #2C2C2C #F9FAF9
+        binding_mode       #2e86de #2C2C2C #F9FAF9
         urgent_workspace   #16a085 #FDF6E3 #E5201D
     }
 }
