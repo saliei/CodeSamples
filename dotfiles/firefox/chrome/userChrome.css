@@ -42,3 +42,6 @@
     font-family: JetBrains Mono !important;
   }
 
+.tabbrowser-tab[label="New Tab"] .tab-content .tab-icon-image {
+   display: none !important; 
+}

@@ -1,8 +1,8 @@
 [global]
     frame_width = 1
-    frame_color = "#788388"
+    frame_color = "#222f3e"
     
-    font = Roboto Mono 10
+    font = JetBrainsMono 10
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -40,7 +40,7 @@
     # window allows bounces back and forth.
     # This option conflicts with "word_wrap".
     # Set to 0 to disable.
-    bounce_freq = 5
+    bounce_freq = 0
 
     
     # Show age of message if message is older than show_age_threshold
@@ -75,7 +75,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 15
+    corner_radius = 5
     
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -140,7 +140,7 @@
     #  * foreground: use the same color as the foreground;
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
-    separator_color = #263238
+    separator_color = "#1E2021"
     
     # Print a notification on startup.
     # This is mainly for error detection, since dbus (re-)starts dunst
@@ -151,16 +151,16 @@
     dmenu = /usr/bin/dmenu -p dunst:
     
     # Browser for opening urls in context menu.
-    browser = google-chrome-stable
+    browser = firefox
 
     # Align icons left/right/off
     icon_position = left
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/
+    icon_path = /usr/share/icons/Papirus-Dark/22x22/devices:/usr/share/icons/Papirus-Dark/22x22/status
 
     # Limit icons size.
-    max_icon_size=128
+    max_icon_size=32
 
 [shortcuts]
 
@@ -185,8 +185,8 @@
     context = ctrl+mod1+c
 
 [progress_bar]
-    highlight = "#1793D1"
-    progress_bar_height = 3
+    highlight = "#2e86de"
+    progress_bar_height = 2
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
@@ -298,6 +298,16 @@
      category = weechat.PM
      background = "#D53B84"
      foreground = "#FFFFFF"
+#
+[Spotify]
+    appname = Spotify
+    max_icon_size = 128
+#
+[Volume]
+    appname = Volume
+    format = "%b %n"
+    new_icon = /usr/share/icons/Papirus-Dark/22x22/devices/audio-headphones.svg
+
 #
 #[CMUS]
 #    appname = CMUS
