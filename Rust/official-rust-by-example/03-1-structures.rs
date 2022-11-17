@@ -8,6 +8,9 @@
  * 3: unit structs: filed-less, useful for generics
  */
 
+// we can use fmt::Debug or fmt::Display traits to print this struct,
+// all types can derive the fmt::Debug implementation for printing, 
+// but fmt::Display must be manually implemented
 #[derive(Debug)]
 struct Person {
     name: String,
@@ -39,5 +42,16 @@ fn main() {
     // create struct with field init shorthand
     let saeid = Person { name, age };
 
+    // print debug struct using :?, Debug trait is already implemented for many types,
+    // to debug print a container, the items inside the container must also implement Debug trait.
     println!("{:?}", saeid);
+    // pretty print
+    println!("{:#?}", saeid);
+
+    let point: Point = Point { x: 1.23, y: 4.56 };
+    println!("point coords: ({}, {})", point.x, point.y);
+    
+    // using struct update syntax to make use of coords of the other point struct
+    let bottom_right = Point { x: 7.89, ..point };
+    println!("bottom_right coords: ({}, {})", bottom_right.x, bottom_right.y);
 }
