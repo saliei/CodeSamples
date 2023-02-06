@@ -1,8 +1,0 @@
-configuration {
-    modi: "drun";
-    font: "Ubuntu Mono Bold 13";
-    matching: "normal";
-    drun-match-fields: "generic";
-}
-
-@theme "~/.config/rofi/avasz.rasi"
