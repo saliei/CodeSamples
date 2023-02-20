@@ -1,0 +1,36 @@
+# Nmap 7.92 scan initiated Sat Dec  4 11:55:17 2021 as: nmap -v -sC -sV -oA nmap/doctor 10.10.10.209
+Nmap scan report for 10.10.10.209
+Host is up (0.18s latency).
+Not shown: 997 filtered tcp ports (no-response)
+PORT     STATE SERVICE  VERSION
+22/tcp   open  ssh      OpenSSH 8.2p1 Ubuntu 4ubuntu0.1 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 59:4d:4e:c2:d8:cf:da:9d:a8:c8:d0:fd:99:a8:46:17 (RSA)
+|   256 7f:f3:dc:fb:2d:af:cb:ff:99:34:ac:e0:f8:00:1e:47 (ECDSA)
+|_  256 53:0e:96:6b:9c:e9:c1:a1:70:51:6c:2d:ce:7b:43:e8 (ED25519)
+80/tcp   open  http     Apache httpd 2.4.41 ((Ubuntu))
+|_http-title: Doctor
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+8089/tcp open  ssl/http Splunkd httpd
+|_http-title: splunkd
+| http-robots.txt: 1 disallowed entry 
+|_/
+| ssl-cert: Subject: commonName=SplunkServerDefaultCert/organizationName=SplunkUser
+| Issuer: commonName=SplunkCommonCA/organizationName=Splunk/stateOrProvinceName=CA/countryName=US
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2020-09-06T15:57:27
+| Not valid after:  2023-09-06T15:57:27
+| MD5:   db23 4e5c 546d 8895 0f5f 8f42 5e90 6787
+|_SHA-1: 7ec9 1bb7 343f f7f6 bdd7 d015 d720 6f6f 19e2 098b
+| http-methods: 
+|_  Supported Methods: GET HEAD OPTIONS
+|_http-server-header: Splunkd
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sat Dec  4 11:56:24 2021 -- 1 IP address (1 host up) scanned in 67.49 seconds

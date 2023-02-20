@@ -1,0 +1,4 @@
+# Nmap 7.91 scan initiated Sat Nov 27 09:19:46 2021 as: nmap -p- -oA nmap/luanne-allports 10.10.10.218
+Host: 10.10.10.218 ()	Status: Up
+Host: 10.10.10.218 ()	Ports: 22/open/tcp//ssh///, 80/open/tcp//http///, 9001/open/tcp//tor-orport///	Ignored State: closed (65532)
+# Nmap done at Sat Nov 27 09:34:22 2021 -- 1 IP address (1 host up) scanned in 875.54 seconds

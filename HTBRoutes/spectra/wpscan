@@ -1,0 +1,114 @@
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.18
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[32m[+][0m URL: http://spectra.htb/main/ [10.10.10.229]
+[32m[+][0m Started: Mon Oct 18 14:22:57 2021
+
+Interesting Finding(s):
+
+[32m[+][0m XML-RPC seems to be enabled: http://spectra.htb/main/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+
+[32m[+][0m WordPress readme found: http://spectra.htb/main/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[32m[+][0m The external WP-Cron seems to be enabled: http://spectra.htb/main/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[32m[+][0m WordPress version 5.4.2 identified (Insecure, released on 2020-06-10).
+ | Found By: Atom Generator (Aggressive Detection)
+ |  - http://spectra.htb/main/?feed=atom, <generator uri="https://wordpress.org/" version="5.4.2">WordPress</generator>
+ | Confirmed By: Style Etag (Aggressive Detection)
+ |  - http://spectra.htb/main/wp-admin/load-styles.php, Match: '5.4.2'
+
+[34m[i][0m The main theme could not be detected.
+
+
+[34m[i][0m Plugin(s) Identified:
+
+[32m[+][0m akismet
+ | Location: http://spectra.htb/main/wp-content/plugins/akismet/
+ | Last Updated: 2021-10-01T18:28:00.000Z
+ | Readme: http://spectra.htb/main/wp-content/plugins/akismet/readme.txt
+ | [33m[!][0m The version is out of date, the latest version is 4.2.1
+ |
+ | Found By: Known Locations (Aggressive Detection)
+ |  - http://spectra.htb/main/wp-content/plugins/akismet/, status: 200
+ |
+ | Version: 4.1.5 (100% confidence)
+ | Found By: Readme - Stable Tag (Aggressive Detection)
+ |  - http://spectra.htb/main/wp-content/plugins/akismet/readme.txt
+ | Confirmed By: Readme - ChangeLog Section (Aggressive Detection)
+ |  - http://spectra.htb/main/wp-content/plugins/akismet/readme.txt
+
+[32m[+][0m fliqz-integration
+ | Location: http://spectra.htb/main/wp-content/plugins/fliqz-integration/
+ | Latest Version: 0.2
+ | Last Updated: 2012-12-03T18:31:00.000Z
+ |
+ | Found By: Known Locations (Aggressive Detection)
+ |  - http://spectra.htb/main/wp-content/plugins/fliqz-integration/, status: 403
+ |
+ | The version could not be determined.
+
+[32m[+][0m flirty-leads
+ | Location: http://spectra.htb/main/wp-content/plugins/flirty-leads/
+ | Latest Version: 3.0
+ | Last Updated: 2020-08-11T18:08:00.000Z
+ |
+ | Found By: Known Locations (Aggressive Detection)
+ |  - http://spectra.htb/main/wp-content/plugins/flirty-leads/, status: 403
+ |
+ | The version could not be determined.
+
+[32m[+][0m flirty-mania
+ | Location: http://spectra.htb/main/wp-content/plugins/flirty-mania/
+ |
+ | Found By: Known Locations (Aggressive Detection)
+ |  - http://spectra.htb/main/wp-content/plugins/flirty-mania/, status: 403
+ |
+ | The version could not be determined.
+
+[32m[+][0m flitpay
+ | Location: http://spectra.htb/main/wp-content/plugins/flitpay/
+ | Latest Version: 0.1
+ | Last Updated: 2017-08-23T09:42:00.000Z
+ |
+ | Found By: Known Locations (Aggressive Detection)
+ |  - http://spectra.htb/main/wp-content/plugins/flitpay/, status: 403
+ |
+ | The version could not be determined.
+
+[33m[!][0m No WPScan API Token given, as a result vulnerability data has not been output.
+[33m[!][0m You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[32m[+][0m Finished: Mon Oct 18 14:59:50 2021
+[32m[+][0m Requests Done: 95512
+[32m[+][0m Cached Requests: 19
+[32m[+][0m Data Sent: 25.897 MB
+[32m[+][0m Data Received: 14.212 MB
+[32m[+][0m Memory used: 457.27 MB
+[32m[+][0m Elapsed time: 00:36:53

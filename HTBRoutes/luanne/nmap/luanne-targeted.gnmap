@@ -1,0 +1,4 @@
+# Nmap 7.91 scan initiated Sat Nov 27 09:07:56 2021 as: nmap -sC -sV -oA nmap/luanne-targeted 10.10.10.218
+Host: 10.10.10.218 ()	Status: Up
+Host: 10.10.10.218 ()	Ports: 22/open/tcp//ssh//OpenSSH 8.0 (NetBSD 20190418-hpn13v14-lpk; protocol 2.0)/, 80/open/tcp//http//nginx 1.19.0/, 9001/open/tcp//http//Medusa httpd 1.12 (Supervisor process manager)/	Ignored State: closed (997)
+# Nmap done at Sat Nov 27 09:11:33 2021 -- 1 IP address (1 host up) scanned in 216.80 seconds

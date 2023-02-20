@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.91 scan initiated Sat Nov 27 09:19:46 2021 as: nmap -p- -oA nmap/luanne-allports 10.10.10.218 -->
+<nmaprun scanner="nmap" args="nmap -p- -oA nmap/luanne-allports 10.10.10.218" start="1638022786" startstr="Sat Nov 27 09:19:46 2021" version="7.91" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="65535" services="1-65535"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="unknown-response" reason_ttl="0"/>
+<address addr="10.10.10.218" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1638022787" endtime="1638023662"><status state="up" reason="echo-reply" reason_ttl="254"/>
+<address addr="10.10.10.218" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="65532">
+<extrareasons reason="resets" count="65532"/>
+</extraports>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="9001"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="tor-orport" method="table" conf="3"/></port>
+</ports>
+<times srtt="138362" rttvar="39461" to="296206"/>
+</host>
+<runstats><finished time="1638023662" timestr="Sat Nov 27 09:34:22 2021" summary="Nmap done at Sat Nov 27 09:34:22 2021; 1 IP address (1 host up) scanned in 875.54 seconds" elapsed="875.54" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
