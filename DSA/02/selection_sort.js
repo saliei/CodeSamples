@@ -22,3 +22,5 @@ let arr2 = selection_sort(arr1)
 arr2.forEach((element)=> {
     console.log(element);
 });
+
+console.log(arr2)
