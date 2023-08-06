@@ -7,6 +7,8 @@ fn main() {
     // eprintln! : same as eprint!, but new line appended
 
     println!("Hello world!");
+    
+
 
     print!("{} days remaining!", 365);
 
