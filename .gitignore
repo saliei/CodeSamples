@@ -32,3 +32,8 @@ data/
 # Data Files #
 ##############
 *.bsq
+
+# Terraform #
+#############
+.terraform/
+.terraform.lock.hcl
