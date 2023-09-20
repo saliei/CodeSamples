@@ -78,3 +78,44 @@ resource "libvirt_network" "vm_public_network" {
     enabled = true
   }
 }
+
+resource "libvirt_cloudinit_disk" "cloudinit" {
+  name = "${var.VM_HOSTNAME}_cloudinit.iso"
+  #name = "${var.VM_IMG_URL}"
+}
+
+resource "libvirt_domain" "vm" {
+  count = var.VM_COUNT
+  name = "${var.VM_HOSTNAME}-${count.index}"
+  memory = "1024"
+  vcpu = 1
+
+  cloudinit = "${libvirt_cloudinit_disk.cloudinit.id}"
+
+  network_interface {
+    network_id = "${libvirt_network.vm_public_network.id}"
+    network_name = "${libvirt_network.vm_public_network.name}"
+  }
+
+  console {
+    type = "pty"
+    target_type = "serial"
+    target_port = "0"
+  }
+
+  console {
+    type = "pty"
+    target_type = "virtio"
+    target_port = "1"
+  }
+
+  disk {
+    volume_id = "${libvirt_volume.vm[count.index].id}"
+  }
+
+  graphics {
+    type = "spice"
+    listen_type = "address"
+    autoport = true
+  }
+}
