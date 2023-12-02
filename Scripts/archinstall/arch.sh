@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env bash
 #
 # Install Arch Linux. Assumes the Live image is booted 
 # and has internet access
@@ -7,6 +7,9 @@ DISK_PARTITION="sda"
 ROOT_PARTITION="8GB"
 HOME_PARTITION="6GB"
 SWAP_PARTITION="2GB"
+
+REGION="Europe"
+CITY="Rome"
 
 CURRENT_DIR="$(basename $0)"
 
@@ -105,6 +108,22 @@ function pre_installation() {
     
     LOG INFO "installing essential packages"
     pacstrap -K /mnt base linux linux-firmware
+}
+
+#TODO: maybe should be run with arch-chroot
+#TODO: set systemd-timesyncd
+#TODO: check permissions as this is run in the script
+function configurations() {
+    LOG WATN "generating fstab"
+    genfstab -L /mnt >> /mnt/etc/fstab
+    LOG WARN "setting locatime to: ${REGION}/${CITY}"
+    ln -sf /mnt/usr/share/zoneinfo/${REGION}/${CITY} /mnt/etc/localtime
+    LOG INFO "setting hwclock to system"
+    hwclock --systohc
+    LOG INFO "copying locale.conf"
+    cp ${CURRENT_DIR}/files/locale.conf "/etc/local.conf"
+    LOG INFO "copying vconsole.conf"
+
 }
 
 
