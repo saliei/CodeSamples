@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 #
 # Install Arch Linux. Assumes the Live image is booted 
-# and has internet access
+# and has internet access.
+
+set -o xtrace
 
 DISK_PARTITION="sda"
 ROOT_PARTITION="8GB"
@@ -13,7 +15,7 @@ CITY="Rome"
 HOSTNAME="darkstar"
 USERNAME="saliei"
 
-CURRENT_DIR="$(basename $0)"
+CURRENT_DIR="$(dirname $0)"
 
 BLACK="\033[0;30m"
 RED="\033[0;31m"
@@ -94,14 +96,14 @@ function _partition() {
     LOG WARN "formatting disk: /dev/${DISK_PARTITION}2"
     mkswap /dev/${DISK_PARTITION}2
     LOG WARN "formatting disk: /dev/${DISK_PARTITION}3"
-    mkfs.ext4 /dev/${DISK_PARTITION}3
+    mkfs.ext4 -F /dev/${DISK_PARTITION}3
 }
 
 # TODO: add other user-space packages, e.g. networking
 function pre_installation() {
     _partition
 
-    LOG DEBUG "mounting EFI partition: /dev/${DISK_PARTITION}1 /mnt/boot"
+    LOG DEBUG "mounting EFI partition: /dev/${DISK_PARTITION}1 /mnt/boot/efi"
     mount --mkdir /dev/${DISK_PARTITION}1 /mnt/boot/efi
     LOG DEBUG "swap on: /dev/${DISK_PARTITION}2"
     swapon /dev/${DISK_PARTITION}2
