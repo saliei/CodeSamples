@@ -10,6 +10,8 @@ SWAP_PARTITION="2GB"
 
 REGION="Europe"
 CITY="Rome"
+HOSTNAME="darkstar"
+USERNAME="saliei"
 
 CURRENT_DIR="$(basename $0)"
 
@@ -105,7 +107,6 @@ function pre_installation() {
     swapon /dev/${DISK_PARTITION}2
     LOG DEBUG "mounting root partition: /dev/${DISK_PARTITION}3 /mnt"
     mount --mkdir /dev/${DISK_PARTITION}3 /mnt
-    
     LOG INFO "installing essential packages"
     pacstrap -K /mnt base linux linux-firmware
 }
@@ -119,11 +120,28 @@ function configurations() {
     LOG WARN "setting locatime to: ${REGION}/${CITY}"
     ln -sf /mnt/usr/share/zoneinfo/${REGION}/${CITY} /mnt/etc/localtime
     LOG INFO "setting hwclock to system"
-    hwclock --systohc
+    hwclock --systohc #TODO: not chrooting will effect this?
     LOG INFO "copying locale.conf"
-    cp ${CURRENT_DIR}/files/locale.conf "/etc/local.conf"
+    cp "${CURRENT_DIR}/files/locale.conf" /mnt/etc/
     LOG INFO "copying vconsole.conf"
+    cp "${CURRENT_DIR}/files/vconsole.conf" /mnt/etc/
 
+    LOG INFO "setting hostname to: ${HOSTNAME}"
+    echo "${HOSTNAME}" > /mnt/etc/hostname
+
+    #TODO: network config
+
+    #TODO: this should be a do while
+    read -s -p "enter root password:" _root_pass1
+    read -s -p "enter root password again:" _root_pass2
+    if [[ "${_root_pass1}" != "${_root_pass2}" ]]; then
+        LOG ERROR "passwords don't match"
+    else
+        _root_pass=$_root_pass1
+    fi
+    #TODO: set root password non-interactively
+    #TODO: set user password
+    #TODO: add a user
 }
 
 
