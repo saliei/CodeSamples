@@ -37,3 +37,8 @@ data/
 #############
 .terraform/
 .terraform.lock.hcl
+
+# todo files #
+##############
+todo.md
+notes.md
