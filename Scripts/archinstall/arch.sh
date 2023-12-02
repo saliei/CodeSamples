@@ -67,11 +67,12 @@ function LOG() {
     #[[ "$ORIG_LOGLEVEL" == "FATAL" ]] && DIE
 }
 
-function has_internet_access() {
+function _has_internet_access() {
     echo "this checks the network access"
 }
 
-function partition() {
+#TODO: more flexibility on partitioning schema
+function _partition() {
     LOG DEBUG "partitioning"
     _disk_line=$(sfdisk -l | grep "Disk /dev/${DISK_PARTITION}" &>/dev/null)
     LOG INFO "sfdisk info: ${_disk_line}"
@@ -79,11 +80,36 @@ function partition() {
     wipefs --all /dev/${DISK_PARTITION}
 
     _hw_sector_size=$(cat /sys/block/${DISK_PARTITION}/queue/hw_sector_size)
+    LOG INFO "using hw sector size: ${_hw_sector_size}"
+    sfdisk /dev/${DISK_PARTITION} < "${CURRENT_DIR}/files/${DISK_PARTITION}.sfdisk"
+    [[ $? != 0 ]] && LOG ERROR "problem in partitioning the disk: /dev/${DISK_PARTITION}"
 
+    LOG WARN "formatting disk: /dev/${DISK_PARTITION}1"
+    mkfs.fat -F 32 /dev/${DISK_PARTITION}1
+    LOG WARN "formatting disk: /dev/${DISK_PARTITION}2"
+    mkswap /dev/${DISK_PARTITION}2
+    LOG WARN "formatting disk: /dev/${DISK_PARTITION}3"
+    mkfs.ext4 /dev/${DISK_PARTITION}3
 }
 
+# TODO: add other user-space packages, e.g. networking
+function pre_installation() {
+    _partition
+
+    LOG DEBUG "mounting EFI partition: /dev/${DISK_PARTITION}1 /mnt/boot"
+    mount --mkdir /dev/${DISK_PARTITION}1 /mnt/boot
+    LOG DEBUG "swap on: /dev/${DISK_PARTITION}2"
+    swapon /dev/${DISK_PARTITION}2
+    LOG DEBUG "mounting root partition: /dev/${DISK_PARTITION}3 /mnt"
+    mount --mkdir /dev/${DISK_PARTITION}3 /mnt
+    
+    LOG INFO "installing essential packages"
+    pacstrap -K /mnt base linux linux-firmware
+}
+
+
 function main() {
-  echo "this is main function"
+    pre_installation
 }
 
 main "$@"
