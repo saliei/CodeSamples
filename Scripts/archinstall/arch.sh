@@ -102,7 +102,7 @@ function pre_installation() {
     _partition
 
     LOG DEBUG "mounting EFI partition: /dev/${DISK_PARTITION}1 /mnt/boot"
-    mount --mkdir /dev/${DISK_PARTITION}1 /mnt/boot
+    mount --mkdir /dev/${DISK_PARTITION}1 /mnt/boot/efi
     LOG DEBUG "swap on: /dev/${DISK_PARTITION}2"
     swapon /dev/${DISK_PARTITION}2
     LOG DEBUG "mounting root partition: /dev/${DISK_PARTITION}3 /mnt"
@@ -111,42 +111,48 @@ function pre_installation() {
     pacstrap -K /mnt base linux linux-firmware
 }
 
-#TODO: maybe should be run with arch-chroot
 #TODO: set systemd-timesyncd
 #TODO: check permissions as this is run in the script
 function configurations() {
     LOG WATN "generating fstab"
     genfstab -L /mnt >> /mnt/etc/fstab
-    LOG WARN "setting locatime to: ${REGION}/${CITY}"
-    ln -sf /mnt/usr/share/zoneinfo/${REGION}/${CITY} /mnt/etc/localtime
+    LOG WARN "setting localtime to: ${REGION}/${CITY}"
+    arch-chroot /mnt ln -sf /usr/share/zoneinfo/${REGION}/${CITY} /etc/localtime
     LOG INFO "setting hwclock to system"
-    hwclock --systohc #TODO: not chrooting will effect this?
+    arch-chroot /mnt hwclock --systohc
+    LOG DEBUG "uncommenting en_US.UTF-8 UTF-8 locale"
+    sed -i "/en_US.UTF-8 UTF-8/s/^#*//g" /mnt/etc/locale.gen 
+    LOG INFO "generating locale"
+    arch-chroot /mnt locale-gen
     LOG INFO "copying locale.conf"
     cp "${CURRENT_DIR}/files/locale.conf" /mnt/etc/
     LOG INFO "copying vconsole.conf"
     cp "${CURRENT_DIR}/files/vconsole.conf" /mnt/etc/
-
     LOG INFO "setting hostname to: ${HOSTNAME}"
     echo "${HOSTNAME}" > /mnt/etc/hostname
 
     #TODO: network config
 
-    #TODO: this should be a do while
     read -s -p "enter root password:" _root_pass1
     read -s -p "enter root password again:" _root_pass2
-    if [[ "${_root_pass1}" != "${_root_pass2}" ]]; then
-        LOG ERROR "passwords don't match"
-    else
-        _root_pass=$_root_pass1
-    fi
-    #TODO: set root password non-interactively
-    #TODO: set user password
-    #TODO: add a user
+    while [[ "${_root_pass1}" != "${_root_pass2}" ]]; do
+        LOG ERROR "passwords didn't match, prompting again"
+        read -s -p "enter root password:" _root_pass1
+        read -s -p "enter root password again:" _root_pass2
+    done
+    _root_pass=$_root_pass1
+    LOG WARN "changing root password"
+    echo "root:$_root_pass" | chpasswd --root /mnt
+    LOG WARN "adding user: ${USERNAME}"
+    useradd --root /mnt -c "Saeid Aliei" -m "${USERNAME}"
+    LOG WANT "using root password also for user: ${USERNAME}"
+    echo "${USERNAME}:$_root_pass" | chapsswd --root /mnt
 }
 
 
 function main() {
     pre_installation
+    configurations
 }
 
 main "$@"
