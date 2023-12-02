@@ -3,6 +3,13 @@
 # Install Arch Linux. Assumes the Live image is booted 
 # and has internet access
 
+DISK_PARTITION="sda"
+ROOT_PARTITION="8GB"
+HOME_PARTITION="6GB"
+SWAP_PARTITION="2GB"
+
+CURRENT_DIR="$(basename $0)"
+
 BLACK="\033[0;30m"
 RED="\033[0;31m"
 GREEN="\033[0;32m"
@@ -14,8 +21,6 @@ WHITE="\033[0;37m"
 BGREEN="\033[1;32m"
 BRED="\033[1;31m"
 RESET="\033[0m"
-
-CURRENT_DIR="$(basename $0)"
 
 trap "DIE" SIGINT
 trap "DIE" SIGQUIT
@@ -62,7 +67,18 @@ function LOG() {
     #[[ "$ORIG_LOGLEVEL" == "FATAL" ]] && DIE
 }
 
+function has_internet_access() {
+    echo "this checks the network access"
+}
+
 function partition() {
+    LOG DEBUG "partitioning"
+    _disk_line=$(sfdisk -l | grep "Disk /dev/${DISK_PARTITION}" &>/dev/null)
+    LOG INFO "sfdisk info: ${_disk_line}"
+    LOG WARN "wiping all signatures on disk: /dev/${DISK_PARTITION}"
+    wipefs --all /dev/${DISK_PARTITION}
+
+    _hw_sector_size=$(cat /sys/block/${DISK_PARTITION}/queue/hw_sector_size)
 
 }
 
