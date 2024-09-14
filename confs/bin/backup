@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# A simple script to backup various configs.
+#
+# destination directory
+DEST="/home/saliei/Documents/mega/confs"
+# sync command
+SYNC="rsync -aivh --mkpath --exclude=__pycache__ --exclude=watch_later"
+
+# Config dirs under `~/.config`
+declare -a configs=("ranger" "dunst" "i3" "rofi" "morc_menu" "mpv" \
+    "notes" "redshift" "viewnior" "gtk-3.0" "ncmpcpp" "mpd" "tilix" "conky")
+for conf in "${configs[@]}"; do
+    $SYNC ~/.config/$conf $DEST
+done
+
+# configs under home directory
+$SYNC ~/.bashrc     $DEST/bash/bashrc
+$SYNC ~/.profile    $DEST/profile/profile
+$SYNC ~/.vimrc      $DEST/vim/vimrc
+$SYNC ~/.dmenurc    $DEST/dmenu/dmenurc
+$SYNC ~/.tmux.conf  $DEST/tmux/tmux.conf
+$SYNC ~/.xinitrc    $DEST/X/xinitrc
+$SYNC ~/.Xresources $DEST/X/Xresources
+
+# various other configs
+$SYNC ~/.ssh/                     $DEST/ssh/
+$SYNC ~/.local/bin/               $DEST/bin/
+$SYNC ~/.config/picom.conf        $DEST/picom/
+$SYNC ~/.vim/ycm_extra_conf.py    $DEST/vim/
+$SYNC ~/.config/fish/config.fish  $DEST/fish/

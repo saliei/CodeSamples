@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# This is using ps command
+#line=$(ps -eao ucmd=,%cpu= --sort=-%cpu | head -n 1)
+#comm=$(echo $line | awk '{print $1}')
+#pcpu=$(echo $line | awk '{print $2}')
+
+#printf '%s: %s%% \n' "${comm}" "${pcpu}"
+
+
+# Another method using top command
+LINES=12 top -b -n 1 -w | awk 'FNR == 8 {printf "%s: %s%%\n", $12, $9 }'
