@@ -38,6 +38,7 @@ lspconfig.clangd.setup({
     end,
     on_init = on_init,
     capabilities = capabilities,
+    cmd = { 'clangd', '--query-driver=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include' },
 })
 
 lspconfig.gopls.setup({

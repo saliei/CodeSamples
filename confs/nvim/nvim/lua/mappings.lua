@@ -9,28 +9,28 @@ cmd("FormatDisable", function(args)
     else
         vim.g.disable_autoformat = true
     end
-end, { desc = "Disable autoformat-on-save", bang = true,})
+end, { desc = "Disable autoformat-on-save", bang = true })
 
 cmd("FormatEnable", function()
     vim.b.disable_autoformat = false
     vim.g.disable_autoformat = false
-end, { desc = "Re-enable autoformat-on-save",})
+end, { desc = "Re-enable autoformat-on-save" })
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
 map("n", "<leader>td", function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end, { silent = true, noremap = true })
+end, { desc= "toggle diagnostic" ,silent = true, noremap = true })
 
 map("", "<leader>fc", function()
-  require("conform").format({ async = true, lsp_fallback = true })
+    require("conform").format { async = true, lsp_fallback = true }
 end, { desc = "format" })
 
 map("n", "<leader>ft", function()
     if vim.b.disable_autoformat or vim.g.disable_autoformat then
-        vim.cmd("FormatEnable")
+        vim.cmd "FormatEnable"
     else
-        vim.cmd("FormatDisable")
+        vim.cmd "FormatDisable"
     end
 end, { desc = "toggle format" })
