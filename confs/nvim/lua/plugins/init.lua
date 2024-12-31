@@ -1,8 +1,8 @@
-return {
+local plugins = {
     {
         "stevearc/conform.nvim",
-        event = "BufWritePre", -- uncomment for format on save
-        opts = require("configs.conform"),
+        -- event = "BufWritePre",
+        opts = require "configs.conform",
     },
 
     {
@@ -15,23 +15,22 @@ return {
             },
         },
         config = function()
-            -- require("nvchad.configs.lspconfig").defaults()
-            require("configs.lspconfig")
+            require "configs.lspconfig"
         end,
     },
 
     {
         "nvim-treesitter/nvim-treesitter",
         config = function()
-            require("configs.treesitter")
+            require "configs.treesitter"
         end,
     },
 
     {
         "mfussenegger/nvim-lint",
-        event = { "BufReadPre", "BufNewFile" },
+        -- event = { "BufReadPre", "BufNewFile" },
         config = function()
-            require("configs.lint")
+            require "configs.lint"
         end,
     },
 
@@ -40,7 +39,7 @@ return {
         event = "VeryLazy",
         dependencies = { "conform.nvim" },
         config = function()
-            require("configs.mason-conform")
+            require "configs.mason-conform"
         end,
     },
 
@@ -49,15 +48,23 @@ return {
         event = "VeryLazy",
         dependencies = { "nvim-lspconfig" },
         config = function()
-            require("configs.mason-lspconfig")
+            require "configs.mason-lspconfig"
         end,
     },
+
     {
         "rshkarin/mason-nvim-lint",
         event = "VeryLazy",
         dependencies = { "nvim-lint" },
         config = function()
-            require("configs.mason-lint")
+            require "configs.mason-lint"
         end,
     },
+
+    {
+        "ethanholz/nvim-lastplace",
+        event = "BufWinEnter",
+    },
 }
+
+return plugins

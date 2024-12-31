@@ -1,10 +1,12 @@
-require("nvchad.options")
+require "nvchad.options"
 
--- indentation, set tab width
-vim.o.shiftwidth = 4
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
+local o = vim.o
 
--- folding
--- vim.wo.foldmethod = "expr"
--- vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+o.shiftwidth = 4
+o.tabstop = 4
+o.softtabstop = 4
+o.autoindent = true
+o.expandtab = true
+o.clipboard = "unnamedplus"
+o.wrap = false
+o.mouse = "a"
