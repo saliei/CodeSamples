@@ -65,6 +65,35 @@ local plugins = {
         "ethanholz/nvim-lastplace",
         event = "BufWinEnter",
     },
+
+    {
+        "kdheepak/lazygit.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function ()
+            require "configs.lazygit"
+        end,
+        cmd = {
+            "LazyGit",
+            "LazyGitConfig",
+            "LazyGitCurrentFile",
+            "LazyGitFilter",
+            "LazyGitFilterCurrentFile",
+        },
+    },
+
+    {
+        "voldikss/vim-floaterm",
+        config = function ()
+            require "configs.floaterm"
+        end,
+        cmd = {
+            "FloatermToggle",
+            "FloatermNew",
+            "FloatermPrev",
+            "FloatermNext",
+            "FloatermKill",
+        },
+    },
 }
 
 return plugins
